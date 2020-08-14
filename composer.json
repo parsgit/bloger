@@ -1,0 +1,26 @@
+{
+  "name": "webrium/webrium",
+  "description": "MVC Micro Framework",
+  "type": "project",
+  "require": {
+    "php": ">=7.0.0",
+    "botfire/botfire": "0.0.*",
+    "webrium/mysql": "0.1.*",
+    "webrium/core": "0.0.*",
+    "phpmailer/phpmailer": "~6.1"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "benjamin-khalife",
+      "email": "nvioir@gmail.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "scripts": {
+	"post-create-project-cmd": [
+      		"php -r \"chmod( __DIR__ . '/app/storage/framework/views', 0777);\"",
+		"php -r \"chmod( __DIR__ . '/app/storage/logs', 0777);\""
+	]
+   }
+}
