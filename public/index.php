@@ -20,4 +20,4 @@ Directory::initDefaultStructure();
 File::source('config',['db.php']);
 
 // load routes
-File::source('routes',['web.php']);
+File::source('routes',['web.php','admin.php','404.php']);

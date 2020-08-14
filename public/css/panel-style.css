@@ -1,0 +1,10 @@
+.panel-sidebar{
+  width: 280px;
+  border-right-style: solid;
+  border-color: #e8e8e8;
+  border-right-width: 2px;
+}
+
+.panel-content-main{
+  background: #f0eee9;
+}
