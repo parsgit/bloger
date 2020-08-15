@@ -1,0 +1,11 @@
+.panel-sidebar{
+  border-right:solid #e8e8e8 2px;
+}
+
+.panel-content-main{
+  background: #f0eee9;
+}
+
+.uk-nav>li>a:hover{
+  background: #f4f4f5;
+}

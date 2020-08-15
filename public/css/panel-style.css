@@ -1,10 +1,14 @@
 .panel-sidebar{
   width: 280px;
-  border-right-style: solid;
-  border-color: #e8e8e8;
-  border-right-width: 2px;
 }
 
-.panel-content-main{
-  background: #f0eee9;
+nav{
+  border-bottom: solid #f0eee9 1px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.uk-nav>li>a{
+  padding: 15px !important;
+  padding-left: 20px !important;
 }
