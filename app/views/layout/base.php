@@ -14,5 +14,7 @@
   </head>
   <body>
     @view($_page,$_all)
+
+    @view('layout/loading')
   </body>
 </html>
