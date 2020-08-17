@@ -1,4 +1,5 @@
 <script src="@url('library/jquery/jquery-3.3.1.min.js')"></script>
+<script src="@url('js/public.js')"></script>
 
 <link rel="stylesheet" href="@url('css/panel-style.css')">
 <link rel="stylesheet" href="@url('css/panel-style-white.css')">

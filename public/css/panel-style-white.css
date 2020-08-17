@@ -14,3 +14,9 @@
     background: transparent;
     color: #59d451;
 }
+
+.uk-notification-message-success {
+  color: #fff !important;
+  background: #78dd33 !important;
+  border-radius: 5px;
+}

@@ -12,3 +12,32 @@ nav{
   padding: 15px !important;
   padding-left: 20px !important;
 }
+
+
+
+.color-red{
+  color: red;
+}
+
+.color-green{
+  color: green;
+}
+
+.c-btn-icon{
+  background: #fdfdfd;
+  cursor: pointer;
+  font-size: 18px;
+  border-style: solid;
+  border-radius: 5px;
+  border-width: 1px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  margin-left: 4px;
+}
+
+.color-red.c-btn-icon{
+  border-color: red;
+}
+.color-green.c-btn-icon{
+  border-color: green;
+}
