@@ -1,14 +1,6 @@
 .panel-sidebar{
   width: 280px;
-  /* position: fixed;
-  height: 100%;
-  top: 0;
-  left: 0; */
 }
-
-/* .panel-content-main{
-  margin-left: 281px;
-} */
 
 nav{
   padding-left: 10px;
@@ -18,7 +10,15 @@ nav{
 .uk-nav>li>a{
   padding: 15px !important;
   padding-left: 20px !important;
+  font-size: 18px;
 }
+
+.uk-nav>li>a>span:not(.fas){
+  margin-left: 8px;
+}
+
+
+
 
 
 .color-red{
