@@ -24,9 +24,17 @@ nav{
 .color-red{
   color: red;
 }
-
 .color-green{
   color: green;
+}
+.color-greenyellow{
+  color: greenyellow;
+}
+.color-white{
+  color: white;
+}
+.color-orange{
+  color: orange;
 }
 
 .c-btn-icon{
@@ -46,4 +54,10 @@ nav{
 }
 .color-green.c-btn-icon{
   border-color: green;
+}
+
+.item-in-card{
+  border-radius: 5px;
+  padding: 10px;
+  text-align: center;
 }

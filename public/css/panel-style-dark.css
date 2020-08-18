@@ -17,7 +17,7 @@
 
 .uk-notification-message-success {
   color: #fff !important;
-  background: #78dd33 !important;
+  background: #56a91e !important;
   border-radius: 5px;
 }
 
@@ -51,4 +51,29 @@ li>*,h1,h2,h3,h4,h5,td,tr{
 label:not(.uk-modal){
   color: #e2c161;
   font-weight: bold;
+}
+
+.item-in-card{
+  background: #838486;
+  color: #000;
+}
+
+.item-in-card>.item-image{
+  font-size: 50px;
+  color: #e2c161;
+}
+.item-in-card>.item-type{
+  font-size: 12px;
+  color: #76e65b;
+}
+.item-in-card>.item-name{
+  font-size: 14px;
+  color: #fff;
+  word-break: break-all;
+}
+.item-in-card>.item-btns{
+  font-size: 20px;
+}
+.item-in-card>.item-btns>i{
+  margin-right: 3px;
 }

@@ -106,16 +106,16 @@
         },
         {
             "name": "webrium/core",
-            "version": "0.0.38",
+            "version": "0.0.39",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webrium/core.git",
-                "reference": "c9f89bd01a4d60a17ad741efbb3238e5f9824d43"
+                "reference": "6397a454659da4dbe1aeb37df8ce14e15b3d4b98"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webrium/core/zipball/c9f89bd01a4d60a17ad741efbb3238e5f9824d43",
-                "reference": "c9f89bd01a4d60a17ad741efbb3238e5f9824d43",
+                "url": "https://api.github.com/repos/webrium/core/zipball/6397a454659da4dbe1aeb37df8ce14e15b3d4b98",
+                "reference": "6397a454659da4dbe1aeb37df8ce14e15b3d4b98",
                 "shasum": ""
             },
             "type": "library",
@@ -135,20 +135,20 @@
                 }
             ],
             "description": "PHP Framework",
-            "time": "2020-08-05T18:19:48+00:00"
+            "time": "2020-08-18T15:30:07+00:00"
         },
         {
             "name": "webrium/mysql",
-            "version": "0.1.4",
+            "version": "0.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webrium/mysql.git",
-                "reference": "708020f0724ada383b8d4a6785e4d68e6935e344"
+                "reference": "c2d7277f30387621a278c6ad768a0204d3b8a7a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webrium/mysql/zipball/708020f0724ada383b8d4a6785e4d68e6935e344",
-                "reference": "708020f0724ada383b8d4a6785e4d68e6935e344",
+                "url": "https://api.github.com/repos/webrium/mysql/zipball/c2d7277f30387621a278c6ad768a0204d3b8a7a3",
+                "reference": "c2d7277f30387621a278c6ad768a0204d3b8a7a3",
                 "shasum": ""
             },
             "require": {
@@ -171,7 +171,7 @@
                 }
             ],
             "description": "PHP Framework",
-            "time": "2020-07-23T12:41:05+00:00"
+            "time": "2020-08-15T12:34:09+00:00"
         }
     ],
     "packages-dev": [],

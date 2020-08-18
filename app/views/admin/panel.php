@@ -23,9 +23,10 @@
           <div class="uk-margin-small-top">
 
             <ul class="uk-nav uk-nav-default">
-              <li><a href="@url('admin/category')"> <i class="fas fa-stream"></i> Category</a></li>
-              <li><a href="@url('admin/posts')"> <i class="fas fa-file-alt"></i> Post</a></li>
-              <li><a href="@url('admin/settings')"> <i class="fas fa-cogs"></i> Setting</a></li>
+              <li><a href="@url('admin/category')"> <i class="fas fa-stream"></i> <span>Category</span> </a></li>
+              <li><a href="@url('admin/posts')"> <i class="fas fa-file-alt"></i> <span>Post</span> </a></li>
+              <li><a href="@url('admin/upload')"> <i class="fas fa-file"></i> <span>File</span> </a></li>
+              <li><a href="@url('admin/settings')"> <i class="fas fa-cogs"></i> <span>Setting</span> </a></li>
             </ul>
 
           </div>

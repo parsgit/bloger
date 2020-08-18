@@ -40,7 +40,7 @@ function notifi_success(message){
 }
 
 function notifi(message,status){
-  UIkit.notification({message: message , status: status,timeout: 50000})
+  UIkit.notification({message: message , status: status})
 }
 
 var _delete_params;

@@ -461,6 +461,11 @@ class QueryBuilder
   public function offset($offset)
   {
     $index=$this->SelectSyntaxIndex('OFFSET');
+    
+    if (!isset($this->arr[$index])) {
+      $this->arr[$index]='';
+    }
+    
     $this->arr[$index].=" OFFSET $offset";
     return $this;
   }
