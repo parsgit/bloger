@@ -1,9 +1,16 @@
 .panel-sidebar{
   width: 280px;
+  /* position: fixed;
+  height: 100%;
+  top: 0;
+  left: 0; */
 }
 
+/* .panel-content-main{
+  margin-left: 281px;
+} */
+
 nav{
-  border-bottom: solid #f0eee9 1px;
   padding-left: 10px;
   padding-right: 10px;
 }
@@ -12,7 +19,6 @@ nav{
   padding: 15px !important;
   padding-left: 20px !important;
 }
-
 
 
 .color-red{
@@ -24,7 +30,7 @@ nav{
 }
 
 .c-btn-icon{
-  background: #fdfdfd;
+  background: rgb(255 255 255 / 46%);
   cursor: pointer;
   font-size: 18px;
   border-style: solid;

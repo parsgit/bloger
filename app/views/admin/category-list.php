@@ -1,4 +1,4 @@
-<div class="uk-card uk-card-body uk-card-default uk-width-auto">
+<div class="uk-card uk-card-body uk-width-auto">
 
   <div class="uk-text-center">
     <h5>Add Category</h5>
@@ -15,7 +15,7 @@
 
 </div>
 
-<div class="uk-card uk-card-body uk-card-default uk-width-auto uk-margin-medium-top">
+<div class="uk-card uk-card-body uk-width-auto uk-margin-medium-top">
   <div class="uk-text-center">
     <h5>List</h5>
   </div>

@@ -3,8 +3,6 @@ function post(url,params,callback=false,error=false){
 
   $.post(url,params)
   .done(function(get){
-    loading(false);
-
     if (get.ok==false) {
       UIkit.modal.alert(get.message)
     }
@@ -24,7 +22,7 @@ function error_post() {
   setTimeout(function () {
     loading(false);
     UIkit.modal.alert('Error Internet Connection !')
-  },500);  
+  },500);
 }
 
 function reload(){

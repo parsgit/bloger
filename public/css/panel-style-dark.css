@@ -1,0 +1,54 @@
+.panel-sidebar {
+    border-right: solid #696968 1px !important;
+}
+
+.panel-content-main {
+    background: #636363;
+}
+
+.uk-nav>li>a:hover {
+  background: #424040;
+}
+
+.modal-loading-style {
+    background: transparent;
+    color: #59d451;
+}
+
+.uk-notification-message-success {
+  color: #fff !important;
+  background: #78dd33 !important;
+  border-radius: 5px;
+}
+
+nav{
+  border-bottom: solid #696968 1px;
+}
+
+nav,.panel-sidebar{
+  background: #484848;
+}
+
+li>*,h1,h2,h3,h4,h5,td,tr{
+  color: #fff !important;
+}
+
+*:not(i,.uk-modal,label){
+  color: white;
+}
+
+.uk-card{
+  background: #565353;
+  box-shadow: 0px 5px 15px rgb(117 197 210 / 22%);
+}
+
+.uk-table-striped tbody tr:nth-of-type(odd), .uk-table-striped>tr:nth-of-type(odd) {
+    background: #656262;
+    border-top: 1px solid #656262;
+    border-bottom: 1px solid #656262;
+}
+
+label:not(.uk-modal){
+  color: #e2c161;
+  font-weight: bold;
+}
