@@ -88,11 +88,9 @@ function deleteCategory(data) {
   })
 }
 
-var _edit_item_id = false;
 function editCategoryModal(name,id) {
-  _edit_item_id = id;
   UIkit.modal.prompt('Edit :',name).then(function (input) {
-    editCategory(input,name,_edit_item_id)
+    editCategory(input,name,id)
   })
 }
 
