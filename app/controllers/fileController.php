@@ -24,8 +24,6 @@ class fileController
 
     $errors = [];
     $errors = $res['file']->getErrors();
-    // if (isset($res['file']->getErrors())) {
-    // }
 
     return['ok'=>$res['ok'],'errors'=>$errors];
   }
@@ -54,6 +52,12 @@ class fileController
   public function removeFile()
   {
     Files::remove(input('id'));
+    return['ok'=>true];
+  }
+
+  public function editFile()
+  {
+    Files::editName(input('id'),input('name'));
     return['ok'=>true];
   }
 

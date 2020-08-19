@@ -69,12 +69,7 @@ class Files{
     $file = DB::table('files')->where('id',$id)->first();
 
     if ($file) {
-      if ($file->location=='public') {
-        $path = Directory::path('public')."/$file->category/$file->name";
-      }
-      elseif ($file->location=='storage') {
-        $path = Directory::path('storage_app')."/$file->category/$file->name";
-      }
+      $path = self::getPath($file->location,$file->category,$file->name);
 
       if (File::exists($path)) {
         File::delete($path);
@@ -82,5 +77,27 @@ class Files{
 
       DB::table('files')->where('id',$id)->delete();
     }
+  }
+
+  public static function editName($id,$name)
+  {
+      $file = DB::table('files')->where('id',$id)->first();
+
+      DB::table('files')->where('id',$id)->update([
+        'name'=>$name
+      ]);
+
+      \rename(self::getPath($file->location,$file->category,$file->name),self::getPath($file->location,$file->category,$name));
+  }
+
+  public static function getPath($location,$category,$name)
+  {
+    if ($location=='public') {
+      $path = Directory::path('public')."/$category/$name";
+    }
+    elseif ($location=='storage') {
+      $path = Directory::path('storage_app')."/$category/$name";
+    }
+    return $path;
   }
 }
