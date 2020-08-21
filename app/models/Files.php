@@ -6,6 +6,8 @@ use webrium\core\File;
 use webrium\core\Directory;
 use webrium\mysql\DB;
 
+use app\models\User;
+use app\models\Admin;
 
 class Files{
 
@@ -48,7 +50,8 @@ class Files{
         'category'=>$category,
         'location'=>$storage_type,
         'type'=>$file->getType(),
-        'ext'=>$file->getExt()
+        'ext'=>$file->getExt(),
+        'user_id'=>User::getId()
       ]);
 
       return['ok'=>true,'file'=>$file];
@@ -61,12 +64,18 @@ class Files{
 
   public static function getList($category,$location)
   {
-    return DB::table('files')->where('category',$category)->where('location',$location)->orderBy('id','desc')->get();
+    $list = DB::table('files')->where('category',$category)->where('location',$location)->orderBy('id','desc');
+
+    self::checkRole($list);
+
+    return $list->get();
   }
 
   public static function remove($id)
   {
-    $file = DB::table('files')->where('id',$id)->first();
+    $file = DB::table('files')->where('id',$id);
+    self::checkRole($file);
+    $file=$file->first();
 
     if ($file) {
       $path = self::getPath($file->location,$file->category,$file->name);
@@ -81,13 +90,17 @@ class Files{
 
   public static function editName($id,$name)
   {
-      $file = DB::table('files')->where('id',$id)->first();
+      $file = DB::table('files')->where('id',$id);
+      self::checkRole($file);
+      $file=$file->first();
 
-      DB::table('files')->where('id',$id)->update([
-        'name'=>$name
-      ]);
+      if ($file) {
+        DB::table('files')->where('id',$id)->update([
+          'name'=>$name
+        ]);
 
-      \rename(self::getPath($file->location,$file->category,$file->name),self::getPath($file->location,$file->category,$name));
+        \rename(self::getPath($file->location,$file->category,$file->name),self::getPath($file->location,$file->category,$name));
+      }
   }
 
   public static function getPath($location,$category,$name)
@@ -99,5 +112,12 @@ class Files{
       $path = Directory::path('storage_app')."/$category/$name";
     }
     return $path;
+  }
+
+  public static function checkRole(&$list)
+  {
+    if (Admin::isAuyhor()) {
+      $list->where('user_id',User::getId());
+    }
   }
 }
