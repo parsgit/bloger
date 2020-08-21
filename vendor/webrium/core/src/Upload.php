@@ -261,7 +261,6 @@ class Upload
         $fileName=$this->param_name;
         $file=[];
         if ($this->exists()) {
-
           $file['file_name']= $_FILES[$fileName]['name'];
           $file['size'] =$_FILES[$fileName]['size'];
           $file['tmp_name'] =$_FILES[$fileName]['tmp_name'];

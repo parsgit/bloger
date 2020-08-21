@@ -9,5 +9,8 @@ return array(
     'webrium\\mysql\\' => array($vendorDir . '/webrium/mysql/src'),
     'webrium\\core\\' => array($vendorDir . '/webrium/core/src'),
     'botfire\\botfire\\' => array($vendorDir . '/botfire/botfire/src'),
+    'Symfony\\Component\\Finder\\' => array($vendorDir . '/symfony/finder'),
+    'Rakit\\Validation\\' => array($vendorDir . '/rakit/validation/src'),
     'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
+    'Gregwar\\' => array($vendorDir . '/gregwar/captcha/src/Gregwar'),
 );

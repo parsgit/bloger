@@ -14,7 +14,7 @@ class Query
   public function set($config)
   {
     $db=new \PDO($config['driver'].":host=".$config['db_host'].':'.$config['db_host_port'].";dbname=".$config['db_name'].";charset=".$config['charset'],$config['username'],$config['password']);
-    $db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+    $db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING);
     $this->setSelectResultType(! $config['result_stdClass']);
     $this->db=$db;
     $this->config=$config;

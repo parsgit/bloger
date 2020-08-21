@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInita477ba9b52a6e6326b69fc4802b133cc
+class ComposerStaticInitd47650a42e2d2e5572106661c8fb8f45
 {
     public static $prefixLengthsPsr4 = array (
         'w' => 
@@ -16,9 +16,21 @@ class ComposerStaticInita477ba9b52a6e6326b69fc4802b133cc
         array (
             'botfire\\botfire\\' => 16,
         ),
+        'S' => 
+        array (
+            'Symfony\\Component\\Finder\\' => 25,
+        ),
+        'R' => 
+        array (
+            'Rakit\\Validation\\' => 17,
+        ),
         'P' => 
         array (
             'PHPMailer\\PHPMailer\\' => 20,
+        ),
+        'G' => 
+        array (
+            'Gregwar\\' => 8,
         ),
     );
 
@@ -35,17 +47,29 @@ class ComposerStaticInita477ba9b52a6e6326b69fc4802b133cc
         array (
             0 => __DIR__ . '/..' . '/botfire/botfire/src',
         ),
+        'Symfony\\Component\\Finder\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/finder',
+        ),
+        'Rakit\\Validation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rakit/validation/src',
+        ),
         'PHPMailer\\PHPMailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
+        ),
+        'Gregwar\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/gregwar/captcha/src/Gregwar',
         ),
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInita477ba9b52a6e6326b69fc4802b133cc::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInita477ba9b52a6e6326b69fc4802b133cc::$prefixDirsPsr4;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitd47650a42e2d2e5572106661c8fb8f45::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitd47650a42e2d2e5572106661c8fb8f45::$prefixDirsPsr4;
 
         }, null, ClassLoader::class);
     }
