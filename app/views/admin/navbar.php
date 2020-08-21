@@ -10,8 +10,7 @@
 
     <div class="uk-visible@m">
       <ul class="uk-navbar-nav">
-        <li><a href="#">Item</a></li>
-        <li class="uk-active"><a href="#"> Home </a></li>
+        <li class="uk-active"><a href="/"> Home </a></li>
       </ul>
     </div>
 

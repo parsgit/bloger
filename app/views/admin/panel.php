@@ -9,24 +9,37 @@
 <link rel="stylesheet" href="@url('library/icon/css/all.min.css')">
 
   <div>
-    @view('admin/canvas')
+    @view('admin/canvas',$_all)
 
     <div class="uk-flex" uk-height-viewport="expand: true">
 
       <div  class="uk-visible@m panel-sidebar" >
-        <div uk-sticky>
+        <div uk-sticky style="max-height: 100%;overflow: auto;">
 
-          <div class="" style="height: 150px;background: #444242;">
+          <div class="uk-flex-middle uk-padding-small" style="background: #444242;" uk-grid>
+            <div class="uk-link">
+              <div class="uk-flex-middle uk-flex-center" style="border-radius: 100%;width: 70px;height: 70px;border-style: solid;/*! padding-left: 5px; */" >
+                <i class="fas fas fa-user color-orange" style="font-size: 50px;margin-top: 8px;margin-left: 13px;" ></i>
+              </div>
+            </div>
+
+            <div class="uk-width-expand uk-text-center uk-padding-remove-left">
+              <div class="color-orange uk-text-bold">
+                {{$user->name}}
+              </div>
+              <div class="">
+                {{$user->username}}
+              </div>
+            </div>
 
           </div>
 
           <div class="uk-margin-small-top">
 
             <ul class="uk-nav uk-nav-default">
-              <li><a href="@url('admin/category')"> <i class="fas fa-stream"></i> <span>Category</span> </a></li>
-              <li><a href="@url('admin/posts')"> <i class="fas fa-file-alt"></i> <span>Post</span> </a></li>
-              <li><a href="@url('admin/upload')"> <i class="fas fa-file"></i> <span>File</span> </a></li>
-              <li><a href="@url('admin/settings')"> <i class="fas fa-cogs"></i> <span>Setting</span> </a></li>
+              @foreach($_menus as $menu)
+                <li><a href="{{$menu['link']}}"> <i class="{{$menu['icon']}}"></i> <span>{{$menu['name']}}</span> </a></li>
+              @endforeach
             </ul>
 
           </div>
