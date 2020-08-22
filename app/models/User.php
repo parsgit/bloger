@@ -88,6 +88,9 @@ class User{
     return ['ok'=>false,'message'=>'Username or password is incorrect'];
   }
 
+  /**
+   * add new user
+   */
   public static function add(){
 
     $validator = new Validator;
@@ -136,6 +139,11 @@ class User{
     return['ok'=>true];
   }
 
+  /**
+  * make error string
+  * @param  array $errors $errors->firstOfAll()
+  * @return string        error messages
+  */
   public static function makeError($errors)
   {
     $msg='';
@@ -146,5 +154,13 @@ class User{
     return $msg;
   }
 
+  /**
+  * change sesstion for the logout user
+  * redirect user to the login page after logout
+  */
+  public static function logout(){
+    Session::set(['login'=>false]);
+    return redirect(url('login'));
+  }
 
 }

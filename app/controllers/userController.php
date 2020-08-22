@@ -12,9 +12,14 @@ use Gregwar\Captcha\CaptchaBuilder;
 class userController
 {
 
+  /**
+   * show users list and add new user
+   * @return view
+   */
   public function users(){
 
     $users = User::getAll();
+
     return Panel::view('user-manage',[
       'title'=>'Users',
       'list'=>$users
@@ -50,10 +55,11 @@ class userController
     return $res;
   }
 
-
+  /**
+   * logout admin
+   */
   function logout(){
-    Session::set(['login'=>false]);
-    return redirect(url('login'));
+    return User::logout();
   }
 
   function e404()
