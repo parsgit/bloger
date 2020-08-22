@@ -18,6 +18,7 @@ if (Admin::isAdminRoute()) {
   Route::get('admin/users','controllers@userController->users');
   Route::post('admin/user/add','controllers@userController->add');
   Route::post('admin/user/remove','controllers@userController->remove');
+  Route::post('admin/user/profile','controllers@userController->profilePage');
 
 
   Route::get('admin/category','controllers@categoryController->list');
