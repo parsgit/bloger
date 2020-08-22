@@ -45,16 +45,18 @@ class Files{
 
     if ($file->status()) {
 
-      DB::table('files')->insert([
-        'name'=>$file->getFileName(),
-        'category'=>$category,
-        'location'=>$storage_type,
-        'type'=>$file->getType(),
-        'ext'=>$file->getExt(),
-        'user_id'=>User::getId()
-      ]);
+      if (input('save_db','true')=='true') {
+        DB::table('files')->insert([
+          'name'=>$file->getFileName(),
+          'category'=>$category,
+          'location'=>$storage_type,
+          'type'=>$file->getType(),
+          'ext'=>$file->getExt(),
+          'user_id'=>User::getId()
+        ]);
+      }
 
-      return['ok'=>true,'file'=>$file];
+      return['ok'=>true,'name'=>$file->getFileName(),'file'=>$file];
     }
     else {
       return['ok'=>false,'file'=>$file];
