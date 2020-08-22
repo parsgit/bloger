@@ -37,12 +37,12 @@ class Panel{
     $params['_menus']= self::getMenus();
     $params['user']= User::get();
 
-    return view("layout/base",$params);
+    return view("admin/base",$params);
   }
 
   public static function content($name,$params=[]){
     $params['_page']="admin/$name";
-    return view("layout/base",$params);
+    return view("admin/base",$params);
   }
 
 

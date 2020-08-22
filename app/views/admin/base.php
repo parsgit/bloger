@@ -15,6 +15,6 @@
   <body>
     @view($_page,$_all)
 
-    @view('layout/loading')
+    @view('admin/loading')
   </body>
 </html>
