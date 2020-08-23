@@ -1,2 +1,2 @@
-# bloger
+# blogger
 Webrium CMS
