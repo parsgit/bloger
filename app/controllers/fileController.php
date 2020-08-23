@@ -22,10 +22,16 @@ class fileController
 
     $res = Files::upload(['pdf','png','jpg','mp4','mp3','ico','wmv','zip','rar','tar']);
 
-    $errors = [];
     $errors = $res['file']->getErrors();
 
-    return['ok'=>$res['ok'],'errors'=>$errors];
+    $params = ['ok'=>$res['ok'],'errors'=>$errors];
+
+    if ($res['ok']) {
+      $params['name']=$res['name'];
+    }
+
+
+    return $params;
   }
 
   function getList()
@@ -47,6 +53,18 @@ class fileController
     $name = urldecode($name);
 
     return  File::download(Directory::path('storage_app')."/content/$name");
+  }
+
+  public function showProfileImage()
+  {
+    $url = curent_url();
+    $pos = strpos($url,'image');
+    $name = substr($url,$pos+6);
+
+    $path = Directory::path('storage_app')."/profile/image/$name";
+    // return json_encode(File::exists($path));
+
+    return File::showImage($path);
   }
 
   public function removeFile()
