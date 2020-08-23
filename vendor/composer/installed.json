@@ -253,20 +253,20 @@
     },
     {
         "name": "webrium/core",
-        "version": "0.0.40",
-        "version_normalized": "0.0.40.0",
+        "version": "0.0.41",
+        "version_normalized": "0.0.41.0",
         "source": {
             "type": "git",
             "url": "https://github.com/webrium/core.git",
-            "reference": "27568d390cbbe50960689c1c4b6e7d08a87c4897"
+            "reference": "6e6ea145a6f258e921a491d9b1a84799de50ae78"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/webrium/core/zipball/27568d390cbbe50960689c1c4b6e7d08a87c4897",
-            "reference": "27568d390cbbe50960689c1c4b6e7d08a87c4897",
+            "url": "https://api.github.com/repos/webrium/core/zipball/6e6ea145a6f258e921a491d9b1a84799de50ae78",
+            "reference": "6e6ea145a6f258e921a491d9b1a84799de50ae78",
             "shasum": ""
         },
-        "time": "2020-08-20T13:56:04+00:00",
+        "time": "2020-08-22T19:29:44+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
