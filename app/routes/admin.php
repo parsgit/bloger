@@ -7,7 +7,7 @@ use app\models\Panel;
 if (Admin::isAdminRoute()) {
 
   if (! User::isLogin()) {
-    redirect('login');
+    redirect(url('login'));
   }
 
   Route::get('admin','controllers@adminController->home');
@@ -16,9 +16,11 @@ if (Admin::isAdminRoute()) {
   Route::get('admin/post/add','controllers@postController->postAdd');
 
   Route::get('admin/users','controllers@userController->users');
+  Route::get('admin/user/profile','controllers@userController->profilePage');
   Route::post('admin/user/add','controllers@userController->add');
   Route::post('admin/user/remove','controllers@userController->remove');
-  Route::post('admin/user/profile','controllers@userController->profilePage');
+  Route::post('admin/user/edit','controllers@userController->profileEdit');
+  Route::post('admin/user/edit/password','controllers@userController->profileEditPassword');
 
 
   Route::get('admin/category','controllers@categoryController->list');
