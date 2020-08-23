@@ -1,9 +1,9 @@
 .panel-sidebar {
-    border-right: solid #696968 1px !important;
+  border-right: solid #696968 1px !important;
 }
 
 .panel-content-main {
-    background: #636363;
+  background: #636363;
 }
 
 .uk-nav>li>a:hover {
@@ -11,7 +11,7 @@
 }
 
 .modal-loading-style {
-    color: #59d451;
+  color: #59d451;
 }
 
 .uk-notification-message-success {
@@ -42,9 +42,9 @@ li>*,h1,h2,h3,h4,h5,td,tr{
 }
 
 .uk-table-striped tbody tr:nth-of-type(odd), .uk-table-striped>tr:nth-of-type(odd) {
-    background: #656262;
-    border-top: 1px solid #656262;
-    border-bottom: 1px solid #656262;
+  background: #656262;
+  border-top: 1px solid #656262;
+  border-bottom: 1px solid #656262;
 }
 
 label:not(.uk-modal){
@@ -92,4 +92,15 @@ label:not(.uk-modal){
 .c-button{
   background: #b0b0b0;
   color: white;
+}
+
+
+.profile-image-div{
+  border-color: #1e87f0;
+}
+.profile-image-div>.fa-plus-square{
+  background: #1e87f0;
+}
+.profile-image-div>.fa-minus{
+  background: #ffa500;
 }
