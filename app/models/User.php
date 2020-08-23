@@ -155,6 +155,89 @@ class User{
   }
 
   /**
+   * edit user
+   * @return array
+   */
+  public static function profileEdit(){
+
+    $name = input('name');
+    $username = input('username');
+    $email = input('email');
+    $image = input('image');
+
+    if ($username != self::get()->username) {
+      $user = DB::table('users')->where('username',$username)->first();
+
+      if ($user!=false) {
+        return['ok'=>false,'message'=>'Username already exists Please select another username'];
+      }
+    }
+
+    $validator = new Validator;
+
+    // make it
+    $validation = $validator->make(input(), [
+      'name'                  => 'required|min:3',
+      'username'              => 'required|min:3',
+      'email'                 => 'required|email',
+    ]);
+
+    // then validate
+    $validation->validate();
+
+    if ($validation->fails()) {
+      // handling errors
+      $errors = $validation->errors();
+      return['ok'=>false,'message'=>self::makeError($errors->firstOfAll())];
+    }
+
+
+    DB::table('users')->where('id',self::get()->id)->update([
+      'username'=>$username,
+      'name'=>$name,
+      'email'=>$email,
+      'image'=>$image
+    ]);
+
+    return['ok'=>true];
+  }
+
+  public static function profileEditPassword()
+  {
+    $old_password = input('old_password');
+    $password = input('password');
+    $confirm_password = input('confirm_password');
+
+    $validator = new Validator;
+
+    // make it
+    $validation = $validator->make(input(), [
+      'old_password'          => 'required|min:6',
+      'password'              => 'required|min:6',
+      'confirm_password'      => 'required|same:password',
+    ]);
+
+    // then validate
+    $validation->validate();
+
+    if ($validation->fails()) {
+      // handling errors
+      $errors = $validation->errors();
+      return['ok'=>false,'message'=>self::makeError($errors->firstOfAll())];
+    }
+
+    if (Hash::check($old_password,self::get()->password)==false) {
+      return['ok'=>false,'message'=>'The old password is incorrect'];
+    }
+
+    DB::table('users')->where('id',self::get()->id)->update([
+      'password'=>Hash::make($password)
+    ]);
+
+    return['ok'=>true];
+  }
+
+  /**
   * change sesstion for the logout user
   * redirect user to the login page after logout
   */

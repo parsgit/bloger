@@ -17,11 +17,14 @@
         <div uk-sticky style="max-height: 100%;overflow: auto;">
 
           <div class="uk-flex-middle uk-padding-small" style="background: #444242;" uk-grid>
-            <div class="uk-link">
-              <div class="uk-flex-middle uk-flex-center" style="border-radius: 100%;width: 70px;height: 70px;border-style: solid;/*! padding-left: 5px; */" >
-                <i class="fas fas fa-user color-orange" style="font-size: 50px;margin-top: 8px;margin-left: 13px;" ></i>
+            <a href="@url('admin/user/profile')" class="uk-link">
+              <div  class="uk-margin-auto profile-image-div {{($user->image!=null)?'showimage':''}}">
+                <i class="fas fa-user color-orange"></i>
+                @if($user->image!=null)
+                <img src="@url('profile/image/'.$user->image)" alt="">
+                @endif
               </div>
-            </div>
+            </a>
 
             <div class="uk-width-expand uk-text-center uk-padding-remove-left">
               <div class="color-orange uk-text-bold">
