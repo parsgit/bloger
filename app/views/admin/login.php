@@ -1,5 +1,6 @@
 <script src="@url('library/jquery/jquery-3.3.1.min.js')"></script>
 <script src="@url('js/public.js')"></script>
+<link rel="stylesheet" href="@url('library/icon/css/all.min.css')">
 
 <link rel="stylesheet" href="@url('css/login.css')">
 
@@ -29,8 +30,9 @@
           <div class="uk-child-width-1-2@m" uk-grid>
             <div >
               <div class="">
-                <img src="{!! $cbuilder->inline(); !!}" />
+                <img id="captcha" src="{!! $cbuilder->inline(); !!}" />
               </div>
+              <div><i class="fas fa-sync-alt" ></i></div>
             </div>
 
             <div class="">
