@@ -6,7 +6,7 @@
   background: #636363;
 }
 
-.uk-nav>li>a:hover {
+.uk-nav-default>li>a:hover {
   background: #424040;
 }
 
@@ -103,4 +103,8 @@ label:not(.uk-modal){
 }
 .profile-image-div>.fa-minus{
   background: #ffa500;
+}
+
+.uk-dropdown{
+  background: #a2a2a2 !important;
 }
