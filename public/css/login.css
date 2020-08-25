@@ -2,3 +2,18 @@
 .modal-loading-style {
     color: #59d451;
 }
+
+.captcha{
+  position: absolute;
+  background: #c9d1dc;
+  border-radius: 3px;
+  cursor: pointer;
+  top:10px;
+  right: -27px;
+}
+.captcha>i{
+  padding: 5px;
+  color: #89dc9f;
+  background: #1e87f0;
+  border-radius: 3px;
+}

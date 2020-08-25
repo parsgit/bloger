@@ -4,6 +4,7 @@ namespace app\controllers;
 use app\models\Panel;
 use app\models\User;
 use app\models\Categorys;
+use app\models\Admin;
 
 use webrium\core\Session;
 
@@ -42,18 +43,26 @@ class userController
     return $res;
   }
 
+  public function getNewCaptcha()
+  {
+    $cbuilder = new CaptchaBuilder;
+    $cbuilder->build();
+    $captcha = $cbuilder->getPhrase();
+    Session::set(['captcha'=>strtolower($captcha)]);
+    return $cbuilder->inline();
+  }
+
+  public function captcha()
+  {
+    return ['ok'=>true,'captcha'=>$this->getNewCaptcha()];
+  }
+
   /**
    * Show the login page to the clients
    * @return view
    */
   function loginPage(){
-
-    $cbuilder = new CaptchaBuilder;
-    $cbuilder->build();
-    $captcha = $cbuilder->getPhrase();
-    Session::set(['captcha'=>strtolower($captcha)]);
-
-    return Panel::content('login',['cbuilder'=>$cbuilder]);
+    return Panel::content('login',['captcha'=>$this->getNewCaptcha()]);
   }
 
   /**
@@ -61,7 +70,21 @@ class userController
    * @return view
    */
   function profilePage(){
-    return Panel::view('profile-manage');
+
+    $edit_user_id = input('user_id',false);
+
+    if (Admin::isAdmin() && $edit_user_id!=false) {
+      $myuser = User::getById($edit_user_id);
+    }
+    else {
+      $myuser = User::get();
+    }
+
+    return Panel::view('profile-manage',
+    [
+      'myuser'=>$myuser,
+      'isAdmin'=>Admin::isAdmin(),
+    ]);
   }
 
   /**
@@ -70,6 +93,11 @@ class userController
    */
   function loginUser(){
     $res = User::checkLogin();
+
+    if (! $res['ok']) {
+      $res['captcha']= $this->getNewCaptcha();
+    }
+
     return $res;
   }
 

@@ -28,11 +28,16 @@
 
         <div class="uk-margin uk-margin-medium-top">
           <div class="uk-child-width-1-2@m" uk-grid>
-            <div >
+
+            <div class="uk-position-relative">
+
               <div class="">
-                <img id="captcha" src="{!! $cbuilder->inline(); !!}" />
+                <img class="uk-width-1-1" id="captcha" src="{!! $captcha !!}" />
               </div>
-              <div><i class="fas fa-sync-alt" ></i></div>
+              <div class="captcha" >
+                <i onclick="newCaptcha($(this))" class="fas fa-sync-alt" ></i>
+              </div>
+
             </div>
 
             <div class="">
@@ -63,6 +68,25 @@
       if (get.ok) {
         window.location.href='@url("admin")';
       }
+      else if(get.ok==false) {
+        $('#captcha').attr('src',get.captcha);
+        $('input[name="captcha"]').val('');
+      }
+    });
+  }
+
+  function newCaptcha(btn) {
+    btn.fadeOut();
+    ajax('@url("captcha/new")',{},function (get) {
+      if (get.ok) {
+        $('#captcha').attr('src',get.captcha);
+        $('input[name="captcha"]').val('');
+        loading(false);
+      }
+
+      setTimeout(function () {
+        btn.fadeIn();
+      },10000);
     });
   }
 </script>
