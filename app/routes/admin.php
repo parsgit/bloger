@@ -15,15 +15,11 @@ if (Admin::isAdminRoute()) {
   Route::get('admin/posts','controllers@postController->postAdd');
   Route::get('admin/post/add','controllers@postController->postAdd');
 
-  Route::get('admin/users','controllers@userController->users');
+
   Route::get('admin/user/profile','controllers@userController->profilePage');
-  Route::post('admin/user/add','controllers@userController->add');
-  Route::post('admin/user/remove','controllers@userController->remove');
   Route::post('admin/user/edit','controllers@userController->profileEdit');
   Route::post('admin/user/edit/password','controllers@userController->profileEditPassword');
 
-
-  Route::get('admin/category','controllers@categoryController->list');
 
   Route::get('admin/upload','controllers@fileController->uploadPage');
   Route::post('admin/upload','controllers@fileController->uploadFile');
@@ -31,9 +27,17 @@ if (Admin::isAdminRoute()) {
   Route::post('admin/file/remove','controllers@fileController->removeFile');
   Route::post('admin/file/edit','controllers@fileController->editFile');
 
-  Route::post('admin/category/add','controllers@categoryController->add');
-  Route::post('admin/category/remove','controllers@categoryController->remove');
-  Route::post('admin/category/edit','controllers@categoryController->edit');
+
+  if (Admin::access(['administrator'])) {
+    Route::get('admin/category','controllers@categoryController->list');
+    Route::post('admin/category/add','controllers@categoryController->add');
+    Route::post('admin/category/remove','controllers@categoryController->remove');
+    Route::post('admin/category/edit','controllers@categoryController->edit');
+
+    Route::get('admin/users','controllers@userController->users');
+    Route::post('admin/user/add','controllers@userController->add');
+    Route::post('admin/user/remove','controllers@userController->remove');
+  }
 
   Route::get('admin/logout','controllers@userController->logout');
 
