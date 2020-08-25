@@ -96,8 +96,10 @@
         <td>{{$myuser->email}}</td>
         <td>{{$myuser->type}}</td>
         <td>
+          @if($myuser->id != $user->id)
           <button onclick="removeUserMessage({{$myuser->id}},'{{$myuser->username}}')" class="c-btn-icon color-red"> <i class="fas fa-trash"></i> </button>
-          <button onclick="" class="c-btn-icon color-green"> <i class="fas fa-edit"></i> </button>
+          @endif
+          <button onclick="window.location.href='@url('admin/user/profile?user_id='.$myuser->id)'" class="c-btn-icon color-green"> <i class="fas fa-edit"></i> </button>
 
         </td>
       </tr>
@@ -111,28 +113,29 @@
 
 
 <script type="text/javascript">
-  function addUser() {
+function addUser() {
 
-    data = new FormData(document.getElementById('add-form'));
+  data = new FormData(document.getElementById('add-form'));
 
-    ajax('@url("admin/user/add")',data,function (get) {
-      if (get.ok) {
-        notifi_success();
-        reload();
-      }
-    });
+  ajax('@url("admin/user/add")',data,function (get) {
+    if (get.ok) {
+      notifi_success();
+      reload();
+    }
+  });
 
-  }
+}
 
-  function removeUserMessage(id,username) {
-    delete_message({id:id},'Delete user "'+username+'" ?',removeUser);
-  }
-  function removeUser(params) {
-    post('@url("admin/user/remove")',params,function (get) {
-      if (get.ok) {
-        notifi_success();
-        reload();
-      }
-    })
-  }
+function removeUserMessage(id,username) {
+  delete_message({id:id},'Delete user "'+username+'" ?',removeUser);
+}
+
+function removeUser(params) {
+  post('@url("admin/user/remove")',params,function (get) {
+    if (get.ok) {
+      notifi_success();
+      reload();
+    }
+  })
+}
 </script>
