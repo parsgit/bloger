@@ -46,4 +46,12 @@ class Admin{
     return false;
   }
 
+  public static function allowPasswordEditingWithoutOldPassword($myuser){
+    if(! self::isAdmin() || (self::isAdmin() && $myuser->type == 'administrator') ){
+      return true;
+    }
+    return false;
+  }
+
+
 }

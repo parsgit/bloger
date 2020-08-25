@@ -34,8 +34,13 @@ class User{
     return self::$user;
   }
 
+  public static function getById($id){
+    return DB::table('users')->where('id',$id)->first();
+  }
+
   public static function getAll(){
-    return DB::table('users')->get();
+    $list = DB::table('users');
+    return $list->get();
   }
 
   public static function remove($id){
@@ -164,8 +169,12 @@ class User{
     $username = input('username');
     $email = input('email');
     $image = input('image');
+    $type = input('type',false);
+    $user_id = input('user_id');
 
-    if ($username != self::get()->username) {
+    $user = DB::table('users')->where('id',$user_id)->first();
+
+    if ($username != $user->username) {
       $user = DB::table('users')->where('username',$username)->first();
 
       if ($user!=false) {
@@ -191,13 +200,22 @@ class User{
       return['ok'=>false,'message'=>self::makeError($errors->firstOfAll())];
     }
 
+    if ($user_id != User::get()->id && !Admin::isAdmin()) {
+      return['ok'=>false,'message'=>'You do not have permission to edit other users'];
+    }
 
-    DB::table('users')->where('id',self::get()->id)->update([
+    $insertParams=[
       'username'=>$username,
       'name'=>$name,
       'email'=>$email,
       'image'=>$image
-    ]);
+    ];
+
+    if ($type!=false && Admin::isAdmin()) {
+      $insertParams['type']=$type;
+    }
+
+    DB::table('users')->where('id',$user_id)->update($insertParams);
 
     return['ok'=>true];
   }
@@ -207,15 +225,22 @@ class User{
     $old_password = input('old_password');
     $password = input('password');
     $confirm_password = input('confirm_password');
+    $user_id = input('user_id');
+
 
     $validator = new Validator;
 
-    // make it
-    $validation = $validator->make(input(), [
-      'old_password'          => 'required|min:6',
+    $role =  [
       'password'              => 'required|min:6',
       'confirm_password'      => 'required|same:password',
-    ]);
+    ];
+
+    if (!Admin::isAdmin()) {
+      $role['old_password'] ='required|min:6';
+    }
+
+    // make it
+    $validation = $validator->make(input(),$role);
 
     // then validate
     $validation->validate();
@@ -226,11 +251,17 @@ class User{
       return['ok'=>false,'message'=>self::makeError($errors->firstOfAll())];
     }
 
-    if (Hash::check($old_password,self::get()->password)==false) {
+    if (!Admin::isAdmin() && Hash::check($old_password,self::get()->password)==false) {
       return['ok'=>false,'message'=>'The old password is incorrect'];
     }
 
-    DB::table('users')->where('id',self::get()->id)->update([
+    $user = DB::table('users')->where('id',$user_id)->first();
+
+    if ($user_id != User::get()->id && !Admin::isAdmin()) {
+      return['ok'=>false,'message'=>'You do not have permission to edit other users'];
+    }
+
+    DB::table('users')->where('id',$user_id)->update([
       'password'=>Hash::make($password)
     ]);
 
@@ -245,5 +276,6 @@ class User{
     Session::set(['login'=>false]);
     return redirect(url('login'));
   }
+
 
 }

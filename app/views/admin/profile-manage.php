@@ -4,36 +4,50 @@
 
   <form id="edit-info-form">
 
-    <div class="uk-margin uk-child-width-1-3@s" uk-grid>
+    <div class="uk-margin uk-child-width-1-2@s" uk-grid>
 
       <div>
         <div>
           <label>Username</label>
-          <input autocomplete="off" placeholder=".." type="text" class="uk-input" name="username" value="{{$user->username}}">
+          <input autocomplete="off" placeholder=".." type="text" class="uk-input" name="username" value="{{$myuser->username}}">
         </div>
       </div>
 
       <div>
         <div>
           <label>Name</label>
-          <input autocomplete="off" placeholder=".." type="text" class="uk-input" name="name" value="{{$user->name}}">
+          <input autocomplete="off" placeholder=".." type="text" class="uk-input" name="name" value="{{$myuser->name}}">
         </div>
       </div>
 
       <div>
         <div>
           <label>Email</label>
-          <input autocomplete="off" placeholder="" type="text" class="uk-input" name="email" value="{{$user->email}}">
+          <input autocomplete="off" placeholder="" type="text" class="uk-input" name="email" value="{{$myuser->email}}">
         </div>
       </div>
+
+      @if($myuser->id!=$user->id)
+      <div>
+        <div>
+          <label>Role</label>
+          <select class="uk-select" name="type">
+            <option value="author" {{($myuser->type=='author')?'selected':''}} >author</option>
+            <option value="editor" {{($myuser->type=='editor')?'selected':''}} >editor</option>
+            <option value="administrator" {{($myuser->type=='administrator')?'selected':''}} >administrator</option>
+          </select>
+        </div>
+      </div>
+      @endif
 
     </div>
 
     <input type="hidden" name="image" value="">
+    <input type="hidden" name="user_id" value="{{$myuser->id}}">
 
   </form>
 
-  <div  class="uk-margin-auto profile-image-div {{($user->image!=null)?'showimage':''}}">
+  <div id="profile-image-div" class="uk-margin-auto profile-image-div {{!(empty($myuser->image))?'showimage':''}}">
     <i class="fas fa-user color-orange"></i>
     <i onclick="$('#input-image').click()" class="uk-link fas fa-plus-square"></i>
     <i onclick="removeImage()" class="uk-link fas fa-minus"></i>
@@ -53,20 +67,24 @@
 
 </div>
 
+
 <div class="uk-card uk-card-body uk-margin">
 
   <h4 class="uk-margin uk-text-center uk-text-bold" >Change Password</h4>
 
   <form id="edit-password-form">
 
-    <div class="uk-margin uk-child-width-1-3@m" uk-grid>
+    <div class="uk-margin uk-child-width-1-3@m uk-flex-center" uk-grid>
 
+      @if(! $isAdmin)
       <div>
         <div>
           <label>Old Password</label>
           <input autocomplete="off" placeholder="*****" type="password" class="uk-input" name="old_password" value="">
         </div>
       </div>
+
+      @endif
 
       <div>
         <div>
@@ -84,12 +102,15 @@
 
     </div>
 
+    <input type="hidden" name="user_id" value="{{$myuser->id}}">
+
 
     <div class="uk-margin uk-margin-medium-top uk-text-center">
       <button onclick="ChangePassword()" type="button" class="uk-button c-button-teal" name="button">change password</button>
     </div>
   </form>
 </div>
+
 
 
 <script type="text/javascript">
@@ -152,8 +173,8 @@ upload = UIkit.upload('#input-image', {
     if (response.ok) {
       notifi_success();
       $('#edit-info-form input[name="image"]').val(response.name);
-      $('.profile-image-div img').attr('src',profile_url+response.name);
-      $('.profile-image-div').addClass('showimage');
+      $('#profile-image-div img').attr('src',profile_url+response.name);
+      $('#profile-image-div').addClass('showimage');
     }
     else {
       UIkit.modal.alert(response.errors[0].msg);
@@ -164,14 +185,15 @@ upload = UIkit.upload('#input-image', {
 
 var profile_url = '@url("profile/image/")';
 
-@if($user->image!=null)
-$('.profile-image-div img').attr('src',profile_url+'{{$user->image}}')
+@if(! empty($myuser->image))
+$('#profile-image-div img').attr('src',profile_url+'{{$myuser->image}}');
+$('input[name="image"]').val('{{$myuser->image}}');
 @endif
 
 function removeImage() {
   $('#edit-info-form input[name="image"]').val('');
-  $('.profile-image-div img').attr('src','');
-  $('.profile-image-div').removeClass('showimage');
+  $('#profile-image-div img').attr('src','');
+  $('#profile-image-div').removeClass('showimage');
 }
 
 function SaveChenge() {
