@@ -38,7 +38,7 @@ if (Admin::isAdminRoute()) {
     Route::post('admin/user/add','controllers@userController->add');
     Route::post('admin/user/remove','controllers@userController->remove');
 
-    Route::get('admin/settings','controllers@settingController->index');
+    Route::get('admin/settings','controllers@settingsController->index');
   }
 
   Route::get('admin/logout','controllers@userController->logout');
