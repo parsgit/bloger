@@ -47,30 +47,30 @@
 
     <div class="uk-width-auto">
       <div class="">
-        <label>Enable post <i class="fas fa-eye"></i></label>
-        <div class="c-switcher" uk-switcher="animation: uk-animation-fade; toggle: > *">
-          <button class="uk-button uk-active" type="button">Yes</button>
-          <button class="uk-button" type="button">No</button>
+        <label>Publish <i class="fas fa-eye"></i></label>
+        <div class="c-switcher" name="publish" uk-switcher="animation: uk-animation-fade; toggle: > *">
+          <button class="uk-button uk-active" value="true" type="button">Yes</button>
+          <button class="uk-button" value="false" type="button">No</button>
         </div>
       </div>
     </div>
 
     <div class="uk-width-auto">
       <div class="">
-        <label>Show author Name <i class="fas fa-signature"></i></label>
-        <div class="c-switcher" uk-switcher="animation: uk-animation-fade; toggle: > *">
-          <button class="uk-button " type="button">Yes</button>
-          <button class="uk-button uk-active" type="button">No</button>
+        <label>Author Name <i class="fas fa-signature"></i></label>
+        <div class="c-switcher" name="auther_name" uk-switcher="animation: uk-animation-fade; toggle: > *">
+          <button class="uk-button " value="true" type="button">Yes</button>
+          <button class="uk-button uk-active" value="false" type="button">No</button>
         </div>
       </div>
     </div>
 
     <div class="uk-width-auto">
       <div class="">
-        <label>Allow comments <i class="fas fa-comment"></i> </label>
-        <div class="c-switcher" uk-switcher="animation: uk-animation-fade; toggle: > *">
-          <button class="uk-button uk-active" type="button">Yes</button>
-          <button class="uk-button " type="button">No</button>
+        <label>Allow comment <i class="fas fa-comment"></i> </label>
+        <div class="c-switcher" name="allow_comment" uk-switcher="animation: uk-animation-fade; toggle: > *">
+          <button class="uk-button uk-active" value="true" type="button">Yes</button>
+          <button class="uk-button " value="false" type="button">No</button>
         </div>
       </div>
     </div>
@@ -78,9 +78,9 @@
     <div class="uk-width-auto">
       <div class="">
         <label>Like  <i class="fas fa-heart"></i></label>
-        <div class="c-switcher" uk-switcher="animation: uk-animation-fade; toggle: > *">
-          <button class="uk-button uk-active" type="button">Yes</button>
-          <button class="uk-button" type="button">No</button>
+        <div class="c-switcher" name="like" uk-switcher="animation: uk-animation-fade; toggle: > *">
+          <button class="uk-button uk-active" value="true" type="button">Yes</button>
+          <button class="uk-button" value="false" type="button">No</button>
         </div>
       </div>
     </div>
@@ -89,7 +89,7 @@
 
   <div class="uk-margin uk-text-center uk-margin-medium-top">
     <div class="uk-card uk-card-body uk-padding-small">
-      <button type="button" class="uk-button c-button-icon c-button-teal uk-width-small" name="button">Save <i class="fas fa-save color-orange"></i></button>
+      <button onclick="sendPost()" type="button" class="uk-button c-button-icon c-button-teal uk-width-small" name="button">Save <i class="fas fa-save color-orange"></i></button>
     </div>
   </div>
 </div>
@@ -100,5 +100,18 @@
 
   function changStrlen(input) {
     input.closest('div').find('span[strlen]').text(input.val().length);
+  }
+
+  function getSwicherParams() {
+    ob={};
+    $('.c-switcher').each(function (index) {
+      item = $(this);
+      ob[item.attr('name')] = (item.find('.uk-active').prop('value')=='true')?true:false;
+    });
+    return ob;
+  }
+
+  function sendPost() {
+    console.log(getSwicherParams());
   }
 </script>
