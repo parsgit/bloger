@@ -24,23 +24,23 @@
     </div>
     <div class="uk-width-2-3@s">
       <label>Title <span >( <span strlen>0</span> / 60 )</span> </label>
-      <input autocomplete="off" oninput="changStrlen($(this))" type="text" class="uk-input" name="" value="">
+      <input dir="auto" id="title" autocomplete="off" oninput="changStrlen($(this))" type="text" class="uk-input" name="" value="">
     </div>
   </div>
 
   <div class="uk-margin">
     <label>Content</label>
-    <textarea autocomplete="off" name="post-content" id="post-content" rows="10" cols="80"></textarea>
+    <textarea autocomplete="off" name="post-content" id="content" rows="10" cols="80"></textarea>
   </div>
 
   <div class="uk-margin">
     <label>Description <span>( <span strlen>0</span> / 230-320 )</span> </label>
-    <textarea autocomplete="off" oninput="changStrlen($(this))" class="uk-textarea" name="name" rows="4"></textarea>
+    <textarea dir="auto" id="description" autocomplete="off" oninput="changStrlen($(this))" class="uk-textarea" name="name" rows="4"></textarea>
   </div>
 
   <div class="uk-margin">
     <label>Tags</label>
-    <input autocomplete="off" type="text" class="uk-input" name="" value="">
+    <input id="tags" autocomplete="off" dir="auto" type="text" class="uk-input" name="" value="">
   </div>
 
   <div class="uk-margin uk-flex-center" uk-grid>
@@ -96,7 +96,7 @@
 
 
 <script>
-  CKEDITOR.replace( 'post-content' );
+  CKEDITOR.replace( 'content' );
 
   function changStrlen(input) {
     input.closest('div').find('span[strlen]').text(input.val().length);
@@ -112,6 +112,23 @@
   }
 
   function sendPost() {
-    console.log(getSwicherParams());
+
+    title = $('#title').val();
+    content = CKEDITOR.instances.content.getData();
+    description = $('#description').val();
+    tags = $('#tags').val();
+    category = $('#select-category').val();
+
+    var params={
+      title:title,
+      content:content,
+      description:description,
+      tags:tags,
+      swichers:getSwicherParams(),
+      category:category
+    }
+
+    console.log(params);
+
   }
 </script>
