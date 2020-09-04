@@ -4,6 +4,7 @@ use app\models\Admin;
 use app\models\User;
 use app\models\Panel;
 
+
 if (Admin::isAdminRoute()) {
 
   if (! User::isLogin()) {
@@ -12,8 +13,14 @@ if (Admin::isAdminRoute()) {
 
   Route::get('admin','controllers@adminController->home');
 
-  Route::get('admin/posts','controllers@postController->postAdd');
-  Route::get('admin/post/add','controllers@postController->postAdd');
+  Route::get('admin/posts','controllers@postController->postManage');
+
+  Route::get('admin/post/add','controllers@postController->postManage');
+  Route::post('admin/post/add','controllers@postController->postAdd');
+
+  Route::get('admin/post/edit','controllers@postController->postEditPage');
+  // Route::post('admin/post/add','controllers@postController->postAdd');
+
 
 
   Route::get('admin/user/profile','controllers@userController->profilePage');
