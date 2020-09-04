@@ -496,6 +496,11 @@ class QueryBuilder
   public function join($name,$rel_id,$joinType='INNER')
   {
     $index=$this->SelectSyntaxIndex('JOIN');
+    
+    if (! isset($this->arr[$index])) {
+      $this->arr[$index]='';
+    }
+    
     $this->arr[$index].=" $joinType JOIN $name ON $rel_id ";
     return $this;
   }
