@@ -129,11 +129,8 @@
       category:category
     }
 
-    action = 'new';
-
     @if($post!=false)
       params['id']='{{$post->id}}';
-      action = 'edit';
     @endif
 
     post('@url("admin/post/add")',params,function (get) {
@@ -142,12 +139,13 @@
         notifi_success();
 
         setTimeout(function () {
-          if (action=='new') {
-            window.location.href = '@url("admin/posts")'
-          }
-          else {
-            window.location.href = '@url("admin/post/edit?id=$post->id")'
-          }
+
+          @if($post!=false)
+          window.location.href = '@url("admin/post/edit?id=$post->id")';
+          @else
+          window.location.href = '@url("admin/posts")'
+          @endif
+          
         },1500)
       }
     })
