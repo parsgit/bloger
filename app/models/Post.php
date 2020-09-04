@@ -68,6 +68,89 @@ class Post{
     return $post;
   }
 
+  public static function getAll($page=1){
+
+    $posts = DB::table('posts')->select(['posts.*','categorys.name as category_name'])->orderBy('id','desc');
+
+    self::join($posts);
+
+    $ps=self::paginate($posts,2,$page);
+
+    $posts = $posts->get();
+
+    self::makeUrl($posts);
+
+    $std = new \stdClass;
+    $std->posts = $posts;
+    $std->next  =  $ps['next'];
+    $std->prev  =  $ps['prev'];
+
+    if($std->next!==false)
+    $std->next_page_url  = curent_url()."?page=$std->next";
+
+    if($std->prev!==false)
+    $std->prev_page_url  =  curent_url()."?page=$std->prev";
+
+
+    return $std;
+  }
+
+  public static function paginate(&$data,$take,$page){
+
+    if ($page<1) {
+      return;
+    }
+
+    $next =clone $data;
+    $previous =clone $data;
+
+    $data->take($take)->skip($take*($page-1));
+
+    $next = $next->take($take)->skip($take*$page)->first();
+    if ($next) {
+      $next = $page + 1;
+    }
+
+    $prev = false;
+
+    if (($page-2) > -1) {
+      $prev = $previous->take($take)->skip($take*($page-2))->get();
+    }
+
+    if ($prev) {
+      $prev = $page - 1;
+    }
+
+    return ['next'=>$next,'prev'=>$prev];
+  }
+
+  public static function join(&$item)
+  {
+    $item->leftJoin('categorys', 'categorys.id=posts.category_id');
+  }
+
+  public static function makeUrl(&$posts)
+  {
+
+    $url = url();
+
+    foreach ($posts as $key => $post) {
+
+      $tags = DB::table('tags')->select(['tag','tag_name'])->where('post_id',$post->id)->get();
+
+      $post->tagsUrl=$tags;
+
+      if ($post->category_id==0) {
+        $post->query = "$post->title_post";
+      }
+      else {
+        $post->query = "$post->category_name/$post->title_post";
+      }
+
+      $post->url = "$url$post->query";
+    }
+  }
+
 
   public static function saveTags($post_id,$tags_string){
     DB::table('tags')->where('post_id',$post_id)->delete();
