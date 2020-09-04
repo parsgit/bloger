@@ -14,10 +14,10 @@
     <div class="uk-width-1-3@s">
       <label>Category</label>
 
-      <select  onchange="setCategory($(this))" id="select-category" class="uk-select">
+      <select  onchange="setCategory($(this))" id="select-category" class="uk-select" >
         <option value="0" >/</option>
         @foreach($categorys as $category)
-        <option value="{{$category->id}}" >/{{$category->name}}/</option>
+        <option  {{($post->category_id==$category->id)?'selected':''}} value="{{$category->id}}" >/{{$category->name}}/</option>
         @endforeach
       </select>
 
@@ -145,7 +145,7 @@
           @else
           window.location.href = '@url("admin/posts")'
           @endif
-          
+
         },1500)
       }
     })

@@ -35,5 +35,17 @@ class postController
     return Post::save();
   }
 
+  public function posts(){
+
+    $info = Post::getAll(input('page',1));
+
+    // return $info;
+
+    return Panel::view('post-list',[
+      'title'=>'Post List',
+      'info'=>$info
+    ]);
+  }
+
 
 }
