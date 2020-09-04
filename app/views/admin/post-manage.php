@@ -15,9 +15,9 @@
       <label>Category</label>
 
       <select  onchange="setCategory($(this))" id="select-category" class="uk-select">
-        <option value="content" >/</option>
+        <option value="0" >/</option>
         @foreach($categorys as $category)
-        <option value="content/{{$category->name}}" >{{$category->name}}</option>
+        <option value="{{$category->id}}" >/{{$category->name}}/</option>
         @endforeach
       </select>
 
@@ -40,7 +40,7 @@
 
   <div class="uk-margin">
     <label>Tags</label>
-    <input id="tags" dir="auto" type="text" class="uk-input" name="" value="{{$post->tags_string??''}}">
+    <input id="tags" dir="auto" type="text" class="uk-input" name="" value="{{$post->tags??''}}">
   </div>
 
   <div class="uk-margin uk-flex-center" uk-grid>
@@ -129,8 +129,11 @@
       category:category
     }
 
+    action = 'new';
+
     @if($post!=false)
       params['id']='{{$post->id}}';
+      action = 'edit';
     @endif
 
     post('@url("admin/post/add")',params,function (get) {
@@ -138,6 +141,14 @@
       if (get.ok) {
         notifi_success();
 
+        setTimeout(function () {
+          if (action=='new') {
+            window.location.href = '@url("admin/posts")'
+          }
+          else {
+            window.location.href = '@url("admin/post/edit?id=$post->id")'
+          }
+        },1500)
       }
     })
 
