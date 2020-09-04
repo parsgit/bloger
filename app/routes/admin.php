@@ -13,7 +13,7 @@ if (Admin::isAdminRoute()) {
 
   Route::get('admin','controllers@adminController->home');
 
-  Route::get('admin/posts','controllers@postController->postManage');
+  Route::get('admin/posts','controllers@postController->posts');
 
   Route::get('admin/post/add','controllers@postController->postManage');
   Route::post('admin/post/add','controllers@postController->postAdd');
