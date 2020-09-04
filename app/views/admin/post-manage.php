@@ -14,7 +14,7 @@
     <div class="uk-width-1-3@s">
       <label>Category</label>
 
-      <select autocomplete="off" onchange="setCategory($(this))" id="select-category" class="uk-select">
+      <select  onchange="setCategory($(this))" id="select-category" class="uk-select">
         <option value="content" >/</option>
         @foreach($categorys as $category)
         <option value="content/{{$category->name}}" >{{$category->name}}</option>
@@ -24,23 +24,23 @@
     </div>
     <div class="uk-width-2-3@s">
       <label>Title <span >( <span strlen>0</span> / 60 )</span> </label>
-      <input dir="auto" id="title" autocomplete="off" oninput="changStrlen($(this))" type="text" class="uk-input" name="" value="">
+      <input dir="auto" id="title"oninput="changStrlen($(this))" type="text" class="uk-input" name="" value="{{$post->title??''}}">
     </div>
   </div>
 
   <div class="uk-margin">
     <label>Content</label>
-    <textarea autocomplete="off" name="post-content" id="content" rows="10" cols="80"></textarea>
+    <textarea name="post-content" id="content" rows="10" cols="80">{{$post->content??''}}</textarea>
   </div>
 
   <div class="uk-margin">
     <label>Description <span>( <span strlen>0</span> / 230-320 )</span> </label>
-    <textarea dir="auto" id="description" autocomplete="off" oninput="changStrlen($(this))" class="uk-textarea" name="name" rows="4"></textarea>
+    <textarea dir="auto" id="description" oninput="changStrlen($(this))" class="uk-textarea" name="name" rows="4">{{$post->description??''}}</textarea>
   </div>
 
   <div class="uk-margin">
     <label>Tags</label>
-    <input id="tags" autocomplete="off" dir="auto" type="text" class="uk-input" name="" value="">
+    <input id="tags" dir="auto" type="text" class="uk-input" name="" value="{{$post->tags_string??''}}">
   </div>
 
   <div class="uk-margin uk-flex-center" uk-grid>
@@ -49,8 +49,8 @@
       <div class="">
         <label>Publish <i class="fas fa-eye"></i></label>
         <div class="c-switcher" name="publish" uk-switcher="animation: uk-animation-fade; toggle: > *">
-          <button class="uk-button uk-active" value="true" type="button">Yes</button>
-          <button class="uk-button" value="false" type="button">No</button>
+          <button class="uk-button {{($post!=false && $post->publish==1)?'uk-active':''}}" value="1" type="button">Yes</button>
+          <button class="uk-button {{($post!=false && $post->publish==0)?'uk-active':''}}" value="0" type="button">No</button>
         </div>
       </div>
     </div>
@@ -58,9 +58,9 @@
     <div class="uk-width-auto">
       <div class="">
         <label>Author Name <i class="fas fa-signature"></i></label>
-        <div class="c-switcher" name="auther_name" uk-switcher="animation: uk-animation-fade; toggle: > *">
-          <button class="uk-button " value="true" type="button">Yes</button>
-          <button class="uk-button uk-active" value="false" type="button">No</button>
+        <div class="c-switcher" name="author_name" uk-switcher="animation: uk-animation-fade; toggle: > *">
+          <button class="uk-button {{($post!=false && $post->author_name==1)?'uk-active':''}}" value="1" type="button">Yes</button>
+          <button class="uk-button {{($post!=false && $post->author_name==0)?'uk-active':''}}" value="0" type="button">No</button>
         </div>
       </div>
     </div>
@@ -69,8 +69,8 @@
       <div class="">
         <label>Allow comment <i class="fas fa-comment"></i> </label>
         <div class="c-switcher" name="allow_comment" uk-switcher="animation: uk-animation-fade; toggle: > *">
-          <button class="uk-button uk-active" value="true" type="button">Yes</button>
-          <button class="uk-button " value="false" type="button">No</button>
+          <button class="uk-button {{($post!=false && $post->allow_comment==1)?'uk-active':''}}" value="1" type="button">Yes</button>
+          <button class="uk-button {{($post!=false && $post->allow_comment==0)?'uk-active':''}}" value="0" type="button">No</button>
         </div>
       </div>
     </div>
@@ -79,8 +79,8 @@
       <div class="">
         <label>Like  <i class="fas fa-heart"></i></label>
         <div class="c-switcher" name="like" uk-switcher="animation: uk-animation-fade; toggle: > *">
-          <button class="uk-button uk-active" value="true" type="button">Yes</button>
-          <button class="uk-button" value="false" type="button">No</button>
+          <button class="uk-button {{($post!=false && $post->allow_like==1)?'uk-active':''}}" value="1" type="button">Yes</button>
+          <button class="uk-button {{($post!=false && $post->allow_like==0)?'uk-active':''}}" value="0" type="button">No</button>
         </div>
       </div>
     </div>
@@ -106,7 +106,8 @@
     ob={};
     $('.c-switcher').each(function (index) {
       item = $(this);
-      ob[item.attr('name')] = (item.find('.uk-active').prop('value')=='true')?true:false;
+      // ob[item.attr('name')] = (item.find('.uk-active').prop('value')=='true')?true:false;
+      ob[item.attr('name')] = item.find('.uk-active').prop('value');
     });
     return ob;
   }
@@ -127,6 +128,18 @@
       swichers:getSwicherParams(),
       category:category
     }
+
+    @if($post!=false)
+      params['id']='{{$post->id}}';
+    @endif
+
+    post('@url("admin/post/add")',params,function (get) {
+      console.log(get);
+      if (get.ok) {
+        notifi_success();
+
+      }
+    })
 
     console.log(params);
 
