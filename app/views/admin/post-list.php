@@ -20,7 +20,9 @@
           <td>{{$post->publish?'YES':'NO'}}</td>
           <td>{{$post->updated_at}}</td>
           <td>
-            <button onclick="window.location.href='@url('admin/post/edit'."?id=$post->id")'" class="c-btn-icon color-green"> <i class="fas fa-edit"></i> </button>            
+            <button onclick="window.location.href='@url('admin/post/edit'."?id=$post->id")'" class="c-btn-icon color-green"> <i class="fas fa-edit"></i> </button>
+            <button onclick="removePostMessage()" class="c-btn-icon color-red"> <i class="fas fa-trash"></i> </button>
+
           </td>
         </tr>
         @endforeach
