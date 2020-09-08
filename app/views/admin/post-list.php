@@ -1,12 +1,17 @@
 <div class="uk-card">
 
   <div class="uk-card-body">
+
+    <div class="">
+      <a href="@url('admin/post/add')" class="uk-button uk-button-primary" name="button">Add New Post</a>
+    </div>
     <table class="uk-table uk-table-striped">
       <thead>
         <tr>
           <th>ID</th>
           <th>Title</th>
           <th>Published</th>
+          <th>Author</th>
           <th>Last Update</th>
           <th>Action</th>
         </tr>
@@ -18,6 +23,7 @@
           <td>{{$post->id}}</td>
           <td> <a post="title" target="_blank" href="{{$post->url}}">{{$post->title}}</a> </td>
           <td>{{$post->publish?'YES':'NO'}}</td>
+          <td>{{$post->author_name}}</td>
           <td>{{$post->updated_at}}</td>
           <td>
             <button onclick="window.location.href='@url('admin/post/edit'."?id=$post->id")'" class="c-btn-icon color-green"> <i class="fas fa-edit"></i> </button>

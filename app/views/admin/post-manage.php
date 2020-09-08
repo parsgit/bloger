@@ -17,7 +17,7 @@
       <select  onchange="setCategory($(this))" id="select-category" class="uk-select" >
         <option value="0" >/</option>
         @foreach($categorys as $category)
-        <option  {{($post->category_id==$category->id)?'selected':''}} value="{{$category->id}}" >/{{$category->name}}/</option>
+        <option  {{ ( isset($post->category_id) && $post->category_id==$category->id)?'selected':''}} value="{{$category->id}}" >/{{$category->name}}/</option>
         @endforeach
       </select>
 

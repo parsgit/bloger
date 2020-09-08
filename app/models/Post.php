@@ -46,11 +46,14 @@ class Post{
       'allow_comment'=> $swichers['allow_comment'],
       'allow_like'   => $swichers['like'],
       'category_id'  => $category_id,
-      'tags'         => $tags
+      'tags'         => $tags,
     ];
 
 
     if ($id==false) {
+
+      $params['user_id'] = User::get()->id;
+
       DB::table('posts')->insert($params);
       $id = DB::lastInsertId();
     }
@@ -72,7 +75,7 @@ class Post{
 
   public static function getAll($page=1){
 
-    $posts = DB::table('posts')->select(['posts.*','categorys.name as category_name'])->orderBy('id','desc');
+    $posts = DB::table('posts')->select(['posts.*','categorys.name as category_name','users.name as author_name'])->orderBy('id','desc');
 
     self::join($posts);
 
@@ -130,6 +133,7 @@ class Post{
   public static function join(&$item)
   {
     $item->leftJoin('categorys', 'categorys.id=posts.category_id');
+    $item->leftJoin('users', 'users.id=posts.user_id');
   }
 
   public static function makeUrl(&$posts)
