@@ -1,4 +1,3 @@
-
 <?php
 use webrium\core\Session;
 use webrium\core\Directory;
