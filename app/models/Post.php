@@ -64,7 +64,9 @@ class Post{
   }
 
   public static function getById($id){
-    $post = DB::table('posts')->where('id',$id)->first();
+    $post = DB::table('posts')->where('id',$id);
+    self::checkRole($post);
+    $post=$post->first();
     return $post;
   }
 
@@ -74,8 +76,9 @@ class Post{
 
     self::join($posts);
 
-    $ps=self::paginate($posts,2,$page);
+    $ps=self::paginate($posts,10,$page);
 
+    self::checkRole($posts);
     $posts = $posts->get();
 
     self::makeUrl($posts);
@@ -176,6 +179,24 @@ class Post{
     }
 
     return $msg;
+  }
+
+  public static function remove($id)
+  {
+    $post = DB::table('posts')->where('id',$id);
+
+    self::checkRole($post);
+
+    $post->delete();
+
+    return true;
+  }
+
+  public static function checkRole(&$list)
+  {
+    if (Admin::isAuyhor()) {
+      $list->where('user_id',User::getId());
+    }
   }
 
 }

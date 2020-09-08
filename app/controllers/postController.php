@@ -39,13 +39,17 @@ class postController
 
     $info = Post::getAll(input('page',1));
 
-    // return $info;
-
     return Panel::view('post-list',[
       'title'=>'Post List',
       'info'=>$info
     ]);
   }
 
+  public function postRemove()
+  {
+    $id = input('id');
+    Post::remove($id);
+    return['ok'=>true];
+  }
 
 }

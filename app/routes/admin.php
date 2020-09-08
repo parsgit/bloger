@@ -19,7 +19,7 @@ if (Admin::isAdminRoute()) {
   Route::post('admin/post/add','controllers@postController->postAdd');
 
   Route::get('admin/post/edit','controllers@postController->postEditPage');
-  // Route::post('admin/post/add','controllers@postController->postAdd');
+  Route::post('admin/post/remove','controllers@postController->postRemove');
 
 
 
