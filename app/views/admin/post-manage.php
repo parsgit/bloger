@@ -87,6 +87,32 @@
 
   </div>
 
+  <div class="uk-margin">
+    <div class="">
+      <ul uk-accordion>
+        <li>
+          <a class="uk-accordion-title" href="#">Advanse <i class="fas fa-cogs"></i> </a>
+          <div class="uk-accordion-content">
+            <div uk-grid>
+              <div class="uk-width-1-3@m">
+                <div class="">
+                  <label>Image Url</label>
+                  <input onchange="changePostImage($(this))" type="text" class="uk-input" name="" value="">
+                </div>
+
+                <div class="uk-margin ">
+                  <img id="post-image" class="uk-width-medium uk-margin-auto" src="" alt="">
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+
+    </div>
+  </div>
+
   <div class="uk-margin uk-text-center uk-margin-medium-top">
     <div class="uk-card uk-card-body uk-padding-small">
       <button onclick="sendPost()" type="button" class="uk-button c-button-icon c-button-teal uk-width-small" name="button">Save <i class="fas fa-save color-orange"></i></button>
@@ -96,61 +122,65 @@
 
 
 <script>
-  CKEDITOR.replace( 'content' );
+CKEDITOR.replace( 'content' );
 
-  function changStrlen(input) {
-    input.closest('div').find('span[strlen]').text(input.val().length);
+function changStrlen(input) {
+  input.closest('div').find('span[strlen]').text(input.val().length);
+}
+
+function getSwicherParams() {
+  ob={};
+  $('.c-switcher').each(function (index) {
+    item = $(this);
+    // ob[item.attr('name')] = (item.find('.uk-active').prop('value')=='true')?true:false;
+    ob[item.attr('name')] = item.find('.uk-active').prop('value');
+  });
+  return ob;
+}
+
+function sendPost() {
+
+  title = $('#title').val();
+  content = CKEDITOR.instances.content.getData();
+  description = $('#description').val();
+  tags = $('#tags').val();
+  category = $('#select-category').val();
+
+  var params={
+    title:title,
+    content:content,
+    description:description,
+    tags:tags,
+    swichers:getSwicherParams(),
+    category:category
   }
 
-  function getSwicherParams() {
-    ob={};
-    $('.c-switcher').each(function (index) {
-      item = $(this);
-      // ob[item.attr('name')] = (item.find('.uk-active').prop('value')=='true')?true:false;
-      ob[item.attr('name')] = item.find('.uk-active').prop('value');
-    });
-    return ob;
-  }
+  @if($post!=false)
+  params['id']='{{$post->id}}';
+  @endif
 
-  function sendPost() {
+  post('@url("admin/post/add")',params,function (get) {
+    console.log(get);
+    if (get.ok) {
+      notifi_success();
 
-    title = $('#title').val();
-    content = CKEDITOR.instances.content.getData();
-    description = $('#description').val();
-    tags = $('#tags').val();
-    category = $('#select-category').val();
+      setTimeout(function () {
 
-    var params={
-      title:title,
-      content:content,
-      description:description,
-      tags:tags,
-      swichers:getSwicherParams(),
-      category:category
+        @if($post!=false)
+        window.location.href = '@url("admin/post/edit?id=$post->id")';
+        @else
+        window.location.href = '@url("admin/posts")'
+        @endif
+
+      },1500)
     }
+  })
 
-    @if($post!=false)
-      params['id']='{{$post->id}}';
-    @endif
+  console.log(params);
 
-    post('@url("admin/post/add")',params,function (get) {
-      console.log(get);
-      if (get.ok) {
-        notifi_success();
+}
 
-        setTimeout(function () {
-
-          @if($post!=false)
-          window.location.href = '@url("admin/post/edit?id=$post->id")';
-          @else
-          window.location.href = '@url("admin/posts")'
-          @endif
-
-        },1500)
-      }
-    })
-
-    console.log(params);
-
-  }
+function changePostImage(input){
+  $('#post-image').attr('src',input.val());
+}
 </script>
