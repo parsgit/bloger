@@ -72,10 +72,24 @@ class Post{
   }
 
   public static function getById($id){
-    $post = DB::table('posts')->where('id',$id);
-    self::checkRole($post);
-    $post=$post->first();
+    $post = DB::table('posts')->where('id',$id)->first();
     $post->custom_fields = json_decode($post->custom_fields);
+    return $post;
+  }
+
+  public static function findByTitle($title){
+
+    $post = DB::table('posts')
+    ->select(['posts.*','categorys.name as category_name'])
+    ->where('title_post',$title);
+    
+    self::join($post);
+    $post = $post->first();
+
+    if ($post) {
+      $post->custom_fields = json_decode($post->custom_fields);
+    }
+
     return $post;
   }
 
