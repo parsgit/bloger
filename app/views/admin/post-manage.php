@@ -94,16 +94,56 @@
           <a class="uk-accordion-title" href="#">Advanse <i class="fas fa-cogs"></i> </a>
           <div class="uk-accordion-content">
             <div uk-grid>
-              <div class="uk-width-1-3@m">
-                <div class="">
-                  <label>Image Url</label>
-                  <input onchange="changePostImage($(this))" type="text" class="uk-input" name="" value="">
-                </div>
 
-                <div class="uk-margin ">
-                  <img id="post-image" class="uk-width-medium uk-margin-auto" src="" alt="">
+              <div class="uk-width-1-3@s">
+                <div class="uk-card uk-card-body uk-padding-small">
+                  <h4 class="uk-text-center" >Featured image</h4>
+
+                  <div class="">
+                    <label>Image Url</label>
+                    <input id="featured_image" onchange="changePostImage($(this))" type="text" class="uk-input" name="" value="">
+                  </div>
+
+                  <div class="uk-margin ">
+                    <img id="featured_image_show" class="uk-width-medium uk-margin-auto" src="" alt="">
+                  </div>
                 </div>
               </div>
+
+              <div class="uk-width-2-3@s">
+                <div class="uk-card uk-card-body uk-padding-small">
+                  <h4 class="uk-text-center" >Custom Fields</h4>
+
+                  <div id="custom-fields">
+                    <div id="custom-field-sample" style="display:none;" class="custom-field uk-grid-small" uk-grid>
+                      <div class="uk-width-1-2">
+                        <label>name</label>
+                        <input type="text" class="uk-input" name="name" value="">
+                      </div>
+
+                      <div class="uk-width-1-2">
+                        <label>value</label>
+                        <textarea style=" resize: vertical;" name="value" class="uk-textarea uk-width-1-1" rows="1" ></textarea>
+                      </div>
+                      <div class="uk-width-1-1 uk-margin-remove">
+                        <div class="">
+                          <button onclick="$(this).closest('.uk-grid-small').remove()" class=" uk-button uk-button-small uk-button-danger" type="button" name="button">remove</button>
+                        </div>
+                      </div>
+                    </div>
+
+
+                  </div>
+
+
+
+                  <div class="uk-margin uk-text-center">
+                    <button onclick="addCustomField()" type="button" class="uk-button uk-button-primary" name="button">Add</button>
+                  </div>
+                </div>
+
+              </div>
+
             </div>
           </div>
         </li>
@@ -146,13 +186,20 @@ function sendPost() {
   tags = $('#tags').val();
   category = $('#select-category').val();
 
+  featured_image = $('#featured_image').val();
+
   var params={
     title:title,
     content:content,
     description:description,
     tags:tags,
     swichers:getSwicherParams(),
-    category:category
+    category:category,
+    custom_fields:getCustomFieldParams(),
+  }
+
+  if (featured_image !== '') {
+    params['featured_image']=featured_image;
   }
 
   @if($post!=false)
@@ -181,6 +228,38 @@ function sendPost() {
 }
 
 function changePostImage(input){
-  $('#post-image').attr('src',input.val());
+  $('#featured_image_show').attr('src',input.val());
+}
+
+// new custom field
+function addCustomField() {
+  field = $('#custom-field-sample').clone();
+
+  field
+  .removeAttr('id')
+  .css('display','')
+  .find('input,textarea').val('');
+
+  $('#custom-fields').append(field);
+}
+
+// add a custom field
+addCustomField();
+
+function getCustomFieldParams() {
+  var custom_params = [];
+  $('#custom-fields .custom-field').each(function () {
+    item  = $(this);
+    name  = item.find('input[name="name"]').val();
+    value = item.find('textarea[name="value"]').val();
+
+    if(name !== '')
+    custom_params.push({
+      name:name,
+      value:value
+    });
+  });
+
+  return custom_params;
 }
 </script>
