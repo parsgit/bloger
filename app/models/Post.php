@@ -17,6 +17,9 @@ class Post{
     $tags        = input('tags');
     $category_id = input('category');
     $swichers    = input('swichers');
+    $image    = input('featured_image');
+
+    $custom_fields = json_encode(input('custom_fields',[]));
 
 
     $validator = new Validator;
@@ -47,6 +50,8 @@ class Post{
       'allow_like'   => $swichers['like'],
       'category_id'  => $category_id,
       'tags'         => $tags,
+      'image'        => $image,
+      'custom_fields'=> $custom_fields,
     ];
 
 
@@ -70,6 +75,7 @@ class Post{
     $post = DB::table('posts')->where('id',$id);
     self::checkRole($post);
     $post=$post->first();
+    $post->custom_fields = json_decode($post->custom_fields);
     return $post;
   }
 
