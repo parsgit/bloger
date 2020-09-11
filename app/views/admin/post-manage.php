@@ -101,11 +101,11 @@
 
                   <div class="">
                     <label>Image Url</label>
-                    <input id="featured_image" onchange="changePostImage($(this))" type="text" class="uk-input" name="" value="">
+                    <input id="featured_image" onchange="changePostImage($(this))" type="text" class="uk-input" value="{{($post??false)?$post->image:''}}">
                   </div>
 
                   <div class="uk-margin ">
-                    <img id="featured_image_show" class="uk-width-medium uk-margin-auto" src="" alt="">
+                    <img id="featured_image_show" class="uk-width-medium uk-margin-auto" src="{{($post??false)?$post->image:''}}" alt="">
                   </div>
                 </div>
               </div>
@@ -241,17 +241,15 @@ function addCustomField() {
   .find('input,textarea').val('');
 
   $('#custom-fields').append(field);
+  return field;
 }
-
-// add a custom field
-addCustomField();
 
 function getCustomFieldParams() {
   var custom_params = [];
   $('#custom-fields .custom-field').each(function () {
     item  = $(this);
-    name  = item.find('input[name="name"]').val();
-    value = item.find('textarea[name="value"]').val();
+    var name  = item.find('input[name="name"]').val();
+    var value = item.find('textarea[name="value"]').val();
 
     if(name !== '')
     custom_params.push({
@@ -262,4 +260,15 @@ function getCustomFieldParams() {
 
   return custom_params;
 }
+
+  @if($post??false)
+    @foreach($post->custom_fields as $field)
+      item = addCustomField();
+      item.find('input[name="name"]').val('{{$field->name}}');
+      item.find('textarea[name="value"]').val('{{$field->value}}');
+    @endforeach
+  @else
+    // add a custom field
+    addCustomField();
+  @endif
 </script>
