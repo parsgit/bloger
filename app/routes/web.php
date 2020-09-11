@@ -1,5 +1,27 @@
 <?php
 use webrium\core\Route;
+use webrium\core\Url;
+use app\models\Post;
+
+$arr   = Url::current_array();
+$post  = Post::findByTitle(end($arr));
+
+if ($post) {
+  if ($post->category_id>0) {
+    $query = "$post->category_name/$post->title_post";
+  }
+  else {
+    $query = "$post->title_post";
+  }
+
+  $post_url =  url($query);
+  $curent   = curent_url();
+
+  if ($post_url == $curent) {
+    Route::call('controllers@postController->page');
+    die;
+  }
+}
 
 
 Route::get('','controllers@indexController->index');
