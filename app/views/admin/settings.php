@@ -6,17 +6,17 @@
 
       <div class="uk-margin">
         <label>Site Title</label>
-        <input id="site-title" type="text" class="uk-input" name="site-title" value="">
+        <input id="site-title" type="text" class="uk-input" name="site-title" value="{{$config->site_title??''}}">
       </div>
 
       <div class="uk-margin">
         <label>Tagline</label>
-        <input id="tagline" type="text" class="uk-input" name="" value="">
+        <input id="tagline" type="text" class="uk-input" name="" value="{{$config->tagline??''}}">
       </div>
 
       <div class="uk-margin">
         <label>Theme Name</label>
-        <input id="theme-name" type="text" class="uk-input" name="" value="">
+        <input id="theme-name" type="text" class="uk-input" name="" value="{{$config->theme_name??''}}">
       </div>
 
 
@@ -91,10 +91,11 @@
 
     var configs = getConfigParams();
 
+    configs.push({name:'site_title',value:site_title});
+    configs.push({name:'tagline',value:tagline});
+    configs.push({name:'theme_name',value:theme_name});
+
     post('@url("admin/settings/save")',{
-      site_title:site_title,
-      tagline:tagline,
-      theme_name:theme_name,
       configs:configs
     },function (get) {
       console.log(get);
