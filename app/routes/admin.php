@@ -36,16 +36,36 @@ if (Admin::isAdminRoute()) {
 
 
   if (Admin::access(['administrator'])) {
+
+    //===== CATEGORY =====
+
+    // page
     Route::get('admin/category','controllers@categoryController->list');
+    // add
     Route::post('admin/category/add','controllers@categoryController->add');
+    //remove
     Route::post('admin/category/remove','controllers@categoryController->remove');
+    // edit
     Route::post('admin/category/edit','controllers@categoryController->edit');
 
+
+    //===== USERS =====
+
+    // page
     Route::get('admin/users','controllers@userController->users');
+    // add
     Route::post('admin/user/add','controllers@userController->add');
+    // remove
     Route::post('admin/user/remove','controllers@userController->remove');
 
+
+    //===== SETTINGS =====
+
+    // setting page
     Route::get('admin/settings','controllers@settingsController->index');
+    // save settings value
+    Route::post('admin/settings/save','controllers@settingsController->save');
+
   }
 
   Route::get('admin/logout','controllers@userController->logout');
