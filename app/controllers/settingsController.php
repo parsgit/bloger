@@ -5,6 +5,7 @@ use app\models\Panel;
 use app\models\User;
 use app\models\Categorys;
 use app\models\Admin;
+use app\models\Settings;
 
 use webrium\core\Session;
 
@@ -15,6 +16,12 @@ class settingsController
 
   public function index()
   {
-    return Panel::view('settings');
+    $config = Settings::config();
+    return Panel::view('settings',['config'=>$config]);
+  }
+
+  public function save(){
+    Settings::save();
+    return['ok'=>true];
   }
 }
