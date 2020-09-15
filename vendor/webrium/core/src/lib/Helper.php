@@ -9,7 +9,7 @@ function url($str='')
   return Url::get($str);
 }
 
-function curent_url()
+function current_url()
 {
   return Url::current();
 }
@@ -52,5 +52,5 @@ function storage_path($path='')
 
 function root_path($path='')
 {
-  return App::rootPath().$path;
+  return App::rootPath()."/$path";
 }

@@ -16,13 +16,15 @@ class App
     self::init_spl_autoload_register();
 
     File::runOnce(__DIR__.'/lib/Helper.php');
+
+    Url::ConfirmUrl();
   }
 
   public static function init_spl_autoload_register()
   {
     spl_autoload_register(function($class){
 
-      $class = App::rootPath().$class;
+      $class = App::rootPath()."/$class";
       $name=str_replace('\\','/',$class).".php";
 
       if (File::exists($name)) {
@@ -37,7 +39,7 @@ class App
 
   public static function rootPath()
   {
-    return self::$rootPath;
+    return Url::without_trailing_slash(self::$rootPath);
   }
 
 
