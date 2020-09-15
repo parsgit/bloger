@@ -112,10 +112,10 @@ class Post{
     $std->prev  =  $ps['prev'];
 
     if($std->next!==false)
-    $std->next_page_url  = curent_url()."?page=$std->next";
+    $std->next_page_url  = current_url()."?page=$std->next";
 
     if($std->prev!==false)
-    $std->prev_page_url  =  curent_url()."?page=$std->prev";
+    $std->prev_page_url  =  current_url()."?page=$std->prev";
 
 
     return $std;

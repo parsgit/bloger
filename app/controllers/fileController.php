@@ -46,7 +46,7 @@ class fileController
 
   public function downloadFile()
   {
-    $url = curent_url();
+    $url = current_url();
     $pos = strpos($url,'content');
     $name = substr($url,$pos+8);
 
@@ -57,7 +57,7 @@ class fileController
 
   public function showProfileImage()
   {
-    $url = curent_url();
+    $url = current_url();
     $pos = strpos($url,'image');
     $name = substr($url,$pos+6);
 
