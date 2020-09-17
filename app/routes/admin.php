@@ -11,28 +11,28 @@ if (Admin::isAdminRoute()) {
     redirect(url('login'));
   }
 
-  Route::get('admin','controllers@adminController->home');
+  Route::get('admin','adminController->home');
 
-  Route::get('admin/posts','controllers@postController->posts');
+  Route::get('admin/posts','postController->posts');
 
-  Route::get('admin/post/add','controllers@postController->postManage');
-  Route::post('admin/post/add','controllers@postController->postAdd');
+  Route::get('admin/post/add','postController->postManage');
+  Route::post('admin/post/add','postController->postAdd');
 
-  Route::get('admin/post/edit','controllers@postController->postEditPage');
-  Route::post('admin/post/remove','controllers@postController->postRemove');
-
-
-
-  Route::get('admin/user/profile','controllers@userController->profilePage');
-  Route::post('admin/user/edit','controllers@userController->profileEdit');
-  Route::post('admin/user/edit/password','controllers@userController->profileEditPassword');
+  Route::get('admin/post/edit','postController->postEditPage');
+  Route::post('admin/post/remove','postController->postRemove');
 
 
-  Route::get('admin/upload','controllers@fileController->uploadPage');
-  Route::post('admin/upload','controllers@fileController->uploadFile');
-  Route::post('admin/file/list','controllers@fileController->getList');
-  Route::post('admin/file/remove','controllers@fileController->removeFile');
-  Route::post('admin/file/edit','controllers@fileController->editFile');
+
+  Route::get('admin/user/profile','userController->profilePage');
+  Route::post('admin/user/edit','userController->profileEdit');
+  Route::post('admin/user/edit/password','userController->profileEditPassword');
+
+
+  Route::get('admin/upload','fileController->uploadPage');
+  Route::post('admin/upload','fileController->uploadFile');
+  Route::post('admin/file/list','fileController->getList');
+  Route::post('admin/file/remove','fileController->removeFile');
+  Route::post('admin/file/edit','fileController->editFile');
 
 
   if (Admin::access(['administrator'])) {
@@ -40,35 +40,40 @@ if (Admin::isAdminRoute()) {
     //===== CATEGORY =====
 
     // page
-    Route::get('admin/category','controllers@categoryController->list');
+    Route::get('admin/category','categoryController->list');
     // add
-    Route::post('admin/category/add','controllers@categoryController->add');
+    Route::post('admin/category/add','categoryController->add');
     //remove
-    Route::post('admin/category/remove','controllers@categoryController->remove');
+    Route::post('admin/category/remove','categoryController->remove');
     // edit
-    Route::post('admin/category/edit','controllers@categoryController->edit');
+    Route::post('admin/category/edit','categoryController->edit');
 
 
     //===== USERS =====
 
     // page
-    Route::get('admin/users','controllers@userController->users');
+    Route::get('admin/users','userController->users');
     // add
-    Route::post('admin/user/add','controllers@userController->add');
+    Route::post('admin/user/add','userController->add');
     // remove
-    Route::post('admin/user/remove','controllers@userController->remove');
+    Route::post('admin/user/remove','userController->remove');
 
 
     //===== SETTINGS =====
 
     // setting page
-    Route::get('admin/settings','controllers@settingsController->index');
+    Route::get('admin/settings','settingsController->index');
     // save settings value
-    Route::post('admin/settings/save','controllers@settingsController->save');
+    Route::post('admin/settings/save','settingsController->save');
+
+    Route::post('admin/settings/config/remove','settingsController->removeConfig');
+    // index page
+    Route::get('admin/settings/items-page','settingsController->itemsPage');
+
 
   }
 
-  Route::get('admin/logout','controllers@userController->logout');
+  Route::get('admin/logout','userController->logout');
 
-  Route::notFound('controllers@userController->e404');
+  Route::notFound('userController->e404');
 }

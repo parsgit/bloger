@@ -15,7 +15,7 @@ if ($post) {
   }
 
   $post_url =  url($query);
-  $curent   = curent_url();
+  $curent   = current_url();
 
   if ($post_url == $curent) {
     Route::call('controllers@postController->page');
