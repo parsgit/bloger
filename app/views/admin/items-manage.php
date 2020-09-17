@@ -59,8 +59,8 @@
             <div class="items-text">
 
               <div id="text-sampel-input-box" class="item-text uk-margin">
-                <input item="data" type="text" class="uk-input uk-form-small" placeholder="Data" value="">
-                <textarea item="data" style="display:none;" class="uk-textarea"></textarea>
+                <input data-use="yes" item="data" type="text" class="uk-input uk-form-small" placeholder="Data" value="">
+                <textarea data-use="no" item="data" style="display:none;" class="uk-textarea"></textarea>
 
                 <div class="uk-text-right uk-flex uk-flex-between uk-margin-small">
                   <input item="value" class="uk-input uk-form-width-fit uk-form-small" type="text" placeholder="value(optional)">
@@ -169,8 +169,10 @@ textField = new function() {
   }
 
   this.initTextarea = function (box) {
-    box.find('input[item="data"]').fadeOut(0);
-    box.find('textarea').fadeIn(0);
+
+    box.find('input[item="data"]').data('use','no').fadeOut(0);
+    box.find('textarea').fadeIn(0).data('use','yes'); // :)
+
     ck_editro = CKEDITOR.replace( box.find('textarea').get(0) );
     box.prop('editro',ck_editro);
   }
@@ -252,11 +254,10 @@ function addItem() {
 }
 
 
-
 function getParams() {
   let items=[];
 
-  $('#items-content div[item="main"]').each(function(index,html){
+  $('#items-content div[item="main"]:not(#text-sampel,#item-sampel)').each(function(index,html){
     field = $(this);
     item_type = field.attr('item-type');
     item_type = 1;
@@ -276,8 +277,16 @@ function getType1Params(field){
   let items=[];
 
   field.find('.items-text-main .item-text').each(function () {
+
     config = $(this);
-    data = config.find('input[item="data"]').val();
+
+    if (config.find('input[item="data"]').data('use')=='yes') {
+      data = config.find('input[item="data"]').val();
+    }
+    else {
+      data = config.prop('editro').getData()
+    }
+
     value = config.find('input[item="value"]').val();
     items.push({data:data,value:value});
   });
