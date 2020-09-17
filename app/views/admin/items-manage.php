@@ -171,8 +171,8 @@ textField = new function() {
   this.initTextarea = function (box) {
     box.find('input[item="data"]').fadeOut(0);
     box.find('textarea').fadeIn(0);
-
-    CKEDITOR.replace( box.find('textarea').get(0) );
+    ck_editro = CKEDITOR.replace( box.find('textarea').get(0) );
+    box.prop('editro',ck_editro);
   }
 
   this.addTextarea=function (btn) {
@@ -276,11 +276,9 @@ function getType1Params(field){
   let items=[];
 
   field.find('.items-text-main .item-text').each(function () {
-    console.log('runnn');
     config = $(this);
     data = config.find('input[item="data"]').val();
     value = config.find('input[item="value"]').val();
-    console.log(data);
     items.push({data:data,value:value});
   });
 
