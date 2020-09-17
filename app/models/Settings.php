@@ -6,7 +6,9 @@ use webrium\mysql\DB;
 class Settings{
 
   public static function saveConfigs($configs){
-
+    // echo json_encode($configs);
+    // die;
+    $in = [];
     foreach ($configs as $key => $config) {
       $is = DB::table('configs')->where('name',$config['name'])->first();
 
@@ -17,17 +19,25 @@ class Settings{
         ]);
       }
       else{
-        DB::table('configs')->insert([
+
+
+        // echo json_encode($config['type']??'custom')."\n";
+
+        $params = [
           'name'=>$config['name'],
-          'value'=>$config['value']
-        ]);
+          'value'=>$config['value'],
+          'type'=>$config['type']??'custom'
+        ];
+
+
+        DB::table('configs')->insert($params);
       }
     }
   }
 
   public static function config($name=false,$value=false){
     if ($name==false && $value==false) {
-      return self::configObject(DB::table('configs')->get());
+      return self::configObject(self::getAllConfigArray());
     }
     else if($name!=false && $value==false){
       return self::configObject(DB::table('configs')->where('name',$name)->get());
@@ -40,6 +50,11 @@ class Settings{
 
       return true;
     }
+  }
+
+  public static function getAllConfigArray()
+  {
+    return DB::table('configs')->get();
   }
 
   public static function configObject($list){
@@ -56,9 +71,11 @@ class Settings{
 
     // save configs value
     self::saveConfigs(input('configs',[]));
+  }
 
-
-
+  public static function removeConfig($name)
+  {
+    DB::table('configs')->where('name',$name)->delete();
   }
 
 }
