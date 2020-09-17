@@ -17,11 +17,24 @@ class settingsController
   public function index()
   {
     $config = Settings::config();
-    return Panel::view('settings',['config'=>$config]);
+    $configArray = Settings::getAllConfigArray();
+
+    return Panel::view('settings',['config'=>$config,'configArray'=>$configArray]);
   }
 
   public function save(){
     Settings::save();
     return['ok'=>true];
+  }
+
+  public function removeConfig()
+  {
+    Settings::removeConfig(input('name',false));
+    return['ok'=>true];
+  }
+
+  public function itemsPage()
+  {
+    return Panel::view('items-manage');
   }
 }
