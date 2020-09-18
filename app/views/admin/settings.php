@@ -55,11 +55,12 @@
           </div>
 
           <div class="uk-width-1-2@s">
-            <input type="text" class="uk-input" placeholder="value" name="value" value="">
+            <input  type="text"   class="uk-input" placeholder="value" name="value" value="">
+            <a class="uk-button uk-button-primary uk-width-1-1" style="display:none;" name="edit" >Edit</a>
           </div>
 
           <div class="uk-text-right uk-margin-small uk-width-1-1">
-            <button onclick="remove_config_message($(this))/*$(this).closest('.config-item').remove()*/" type="button" class="uk-button uk-button-danger uk-button-small" name="button">remove</button>
+            <button onclick="remove_config_message($(this))/*$(this).closest('.config-item').remove()*/" type="button" class="uk-button uk-button-danger uk-button-small" name="remove">remove</button>
           </div>
 
         </div>
@@ -154,13 +155,23 @@
   }
 
   @foreach($configArray as $key=> $config)
-    @if($config->type=='custom')
+    @if($config->type=='custom' || $config->type=='items')
       item = addConfig();
       item.data('name','{{$config->name}}');
       item.find('input[name="name"]').val('{{$config->name}}');
-      item.find('input[name="value"]').val('{{$config->value}}');
+
+      @if($config->type=='custom')
+        item.find('input[name="value"]').val('{{$config->value}}');
+      @else
+        item.find('input[name="value"]').fadeOut(0);
+        item.find('a[name="edit"]')
+        .fadeIn(0)
+        .attr('href','@url("admin/settings/items-page?id=".$config->id)');
+      @endif
+
     @endif
   @endforeach
+
 
 
 </script>
