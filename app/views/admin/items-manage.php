@@ -26,7 +26,7 @@
       <div class="uk-width-1-3">
         <div class="">
           <label>Config Name</label>
-          <input id="main-name" type="text" class="uk-input uk-form-small" name="" value="">
+          <input id="main-name" type="text" class="uk-input uk-form-small" name="" value="{{$config->name??''}}">
         </div>
       </div>
 
@@ -64,15 +64,15 @@
 
                 <div class="uk-text-right uk-flex uk-flex-between uk-margin-small">
                   <input item="value" class="uk-input uk-form-width-fit uk-form-small" type="text" placeholder="value(optional)">
-                  <button onclick="textField.removeInputBox($(this))" type="button" class="c-btn-icon color-red" name="button"><i class="fas fa-trash"></i></button>
+                  <button btn="remove" onclick="textField.removeInputBox($(this))" type="button" class="c-btn-icon color-red" name="button"><i class="fas fa-trash"></i></button>
                 </div>
               </div>
 
             </div>
 
             <div class="">
-              <button onclick="textField.addInput($(this))" type="button" class="c-btn-icon color-white" name="button" uk-tooltip="title: Add Input; pos: top"><i class="fas fa-plus" ></i></button>
-              <button onclick="textField.addTextarea($(this))" type="button" class="c-btn-icon color-white" name="button" uk-tooltip="title: Add Textarea; pos: top"><i class="fas fa-plus"></i><i class="fas fa-paragraph"></i></button>
+              <button btn="add-input" onclick="textField.addInput($(this))" type="button" class="c-btn-icon color-white" name="button" uk-tooltip="title: Add Input; pos: top"><i class="fas fa-plus" ></i></button>
+              <button btn="add-textarea" onclick="textField.addTextarea($(this))" type="button" class="c-btn-icon color-white" name="button" uk-tooltip="title: Add Textarea; pos: top"><i class="fas fa-plus"></i><i class="fas fa-paragraph"></i></button>
             </div>
 
           </div>
@@ -165,7 +165,7 @@ textField = new function() {
   this.addInput=function (btn) {
     let box = this.cloneInputBox();
     this.appendToItemsText(box,btn);
-    return this;
+    return box;
   }
 
   this.initTextarea = function (box) {
@@ -175,13 +175,14 @@ textField = new function() {
 
     ck_editro = CKEDITOR.replace( box.find('textarea').get(0) );
     box.prop('editro',ck_editro);
+    return ck_editro;
   }
 
   this.addTextarea=function (btn) {
     let box = this.cloneInputBox();
-    this.initTextarea(box);
+    let editor = this.initTextarea(box);
     this.appendToItemsText(box,btn);
-    return this;
+    return {box:box,editor:editor};
   }
 
   this.removeInputBox = function (btn) {
@@ -251,6 +252,7 @@ function addItem() {
   let main = itemField.addMain();
   itemField.addItem(main);
   main.find('button[btn="clone"]').attr('onclick','itemField.cloneThisMainItem($(this))');
+
 }
 
 
@@ -285,15 +287,18 @@ function getType1Params(field){
 
     config = $(this);
 
+    data_type='input';
+
     if (config.find('input[item="data"]').data('use')=='yes') {
       data = config.find('input[item="data"]').val();
     }
     else {
-      data = config.prop('editro').getData()
+      data = config.prop('editro').getData();
+      data_type='textarea';
     }
 
     value = config.find('input[item="value"]').val();
-    items.push({data:data,value:value});
+    items.push({data:data,value:value,data_type:data_type});
   });
 
   return {name:name,items:items};
@@ -330,6 +335,60 @@ function save() {
     }
 
   })
+}
+
+@if(isset($config))
+console.log('issss');
+@foreach($config->value as $items)
+
+  generateItems(`{!! json_encode($items) !!}`);
+
+@endforeach
+@endif
+
+function generateItems(items) {
+  items = JSON.parse(items);
+  console.log(items);
+
+  if (items.type==1) {
+    initType1(items);
+  }
+  else {
+    initType2(items);
+  }
+}
+
+function initType2(items) {
+  console.log('type 2',items);
+  main = itemField.addMain();
+  main.find('input[item="main-name"]').val(items.name);
+  main.find('input[item="main-value"]').val(items.value);
+
+}
+
+function initType1(items,main=false) {
+  main = textField.addMain();
+
+  main.find('.item-text').remove();
+
+  main.find('input[item="name"]').val(items.name);
+
+  for (var item of items.items) {
+    console.log(item);
+
+    if (item.data_type=='textarea') {
+      te = textField.addTextarea(main.find('button[btn="add-textarea"]'));
+      te.editor.setData(item.data);
+      te.box.find('input[item="value"]').val(item.value)
+
+    }
+    else {
+      let box = textField.addInput(main.find('button[btn="add-input"]'));
+      box.find('input[item="data"]').val(item.data)
+      box.find('input[item="value"]').val(item.value)
+    }
+
+  }
 }
 
 </script>
