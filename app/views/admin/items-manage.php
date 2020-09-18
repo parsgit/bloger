@@ -257,18 +257,23 @@ function addItem() {
 function getParams() {
   let items=[];
 
-  $('#items-content div[item="main"]:not(#text-sampel,#item-sampel)').each(function(index,html){
+  $('#items-content>div[item="main"]:not(#text-sampel,#item-sampel)').each(function(index,html){
     field = $(this);
     item_type = field.attr('item-type');
-    item_type = 1;
 
-    get = getType1Params(field);
+    if (item_type==1) {
+      get = getType1Params(field);
+    }
+    else {
+      get = getType2Params(field);
+    }
+
+    get['type']=item_type;
     items.push(get);
   });
 
-  console.log(items);
+  return items;
 }
-
 
 function getType1Params(field){
 
@@ -294,8 +299,37 @@ function getType1Params(field){
   return {name:name,items:items};
 }
 
+function getType2Params(field) {
+
+  let name  = field.find('input[item="main-name"]').val();
+  let value = field.find('input[item="main-value"]').val();
+
+  let items = getType1Params(field);
+
+  return {name:name,value:value,items:items};
+}
+
+
+
 function save() {
-  getParams();
+
+  params = getParams();
+
+  let config_name = $('#main-name').val();
+
+  post('@url("admin/settings/items/save")',{
+    config_name:config_name,
+    params:params
+  },function (get) {
+
+    loading(false);
+
+    if (get.ok) {
+      notifi_success();
+      reload()
+    }
+
+  })
 }
 
 </script>

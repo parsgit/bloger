@@ -37,4 +37,10 @@ class settingsController
   {
     return Panel::view('items-manage');
   }
+
+  public function saveItems()
+  {
+    Settings::saveItems();
+    return['ok'=>true];
+  }
 }

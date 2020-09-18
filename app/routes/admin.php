@@ -69,6 +69,7 @@ if (Admin::isAdminRoute()) {
     Route::post('admin/settings/config/remove','settingsController->removeConfig');
     // index page
     Route::get('admin/settings/items-page','settingsController->itemsPage');
+    Route::post('admin/settings/items/save','settingsController->saveItems');
 
 
   }

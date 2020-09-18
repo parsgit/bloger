@@ -6,8 +6,7 @@ use webrium\mysql\DB;
 class Settings{
 
   public static function saveConfigs($configs){
-    // echo json_encode($configs);
-    // die;
+
     $in = [];
     foreach ($configs as $key => $config) {
       $is = DB::table('configs')->where('name',$config['name'])->first();
@@ -20,15 +19,11 @@ class Settings{
       }
       else{
 
-
-        // echo json_encode($config['type']??'custom')."\n";
-
         $params = [
           'name'=>$config['name'],
           'value'=>$config['value'],
           'type'=>$config['type']??'custom'
         ];
-
 
         DB::table('configs')->insert($params);
       }
@@ -76,6 +71,15 @@ class Settings{
   public static function removeConfig($name)
   {
     DB::table('configs')->where('name',$name)->delete();
+  }
+
+  public static function saveItems()
+  {
+    self::saveConfigs([[
+      'type'=>'items',
+      'name'=>input('config_name'),
+      'value'=>json_encode(input('params',[]))
+    ]]);
   }
 
 }
