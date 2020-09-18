@@ -145,6 +145,7 @@
             loading(false);
           },1000);
           notifi_success();
+          reload();
         }
       }
     })
