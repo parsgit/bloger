@@ -82,4 +82,15 @@ class Settings{
     ]]);
   }
 
+  public static function getConfigById($id)
+  {
+     $config = DB::table('configs')->where('id',$id)->first();
+
+     if ($config->type=='items') {
+       $config->value = json_decode($config->value);
+     }
+
+     return $config;
+  }
+
 }
