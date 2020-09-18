@@ -52,4 +52,9 @@ class postController
     return['ok'=>true];
   }
 
+  public function page()
+  {
+    return 'hello post';
+  }
+
 }
