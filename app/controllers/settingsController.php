@@ -35,7 +35,14 @@ class settingsController
 
   public function itemsPage()
   {
-    return Panel::view('items-manage');
+    $id = input('id',false);
+    if ($id) {
+      $config = Settings::getConfigById($id);
+      return Panel::view('items-manage',['config'=>$config]);
+    }
+    else {
+      return Panel::view('items-manage');
+    }
   }
 
   public function saveItems()
