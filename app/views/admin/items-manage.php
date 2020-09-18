@@ -41,7 +41,6 @@
     </div>
 
 
-
     <div id="items-content" class="">
 
       <!-- text sample -->
