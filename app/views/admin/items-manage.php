@@ -35,9 +35,11 @@
         <div class="uk-margin-top">
           <button onclick="newTextItems()" class="uk-button uk-button-default" style="color:white;" type="button" name="button">Add Input Items</button>
           <button onclick="addTextareaItems()" class="uk-button uk-button-default" style="color:white;" type="button" name="button">Add Textarea</button>
+          <!-- <button onclick="addItem()" class="uk-button uk-button-default" style="color:white;" type="button" name="button">Add Items</button> -->
         </div>
       </div>
     </div>
+
 
 
     <div id="items-content" class="">
@@ -207,6 +209,53 @@ function addTextareaItems() {
   textField.initTextarea(main.find('.item-text'));
 }
 
+
+itemField = new function() {
+
+  this.itemMainOb = $('#item-sampel');
+
+  this.cloneMain = function () {
+    let item = this.itemMainOb.clone();
+    item.removeAttr('id').removeClass('hide');
+    return item;
+  }
+
+  this.addMain = function () {
+    let main = this.cloneMain();
+    appendToMainItems(main);
+    return main;
+  }
+
+  this.addItem = function (main) {
+    let item  = textField.cloneMain();
+    main.find('.item-sampel-items-text').append(item);
+  }
+
+  this.addChildItem = function(btn) {
+    let main = btn.closest('.field-border');
+    itemField.addItem(main);
+  }
+
+  this.cloneThisMainItem = function (btn) {
+    let item = btn.closest('.field-border').clone();
+    item.removeAttr('id').removeClass('hide');
+    item.find('input,textarea').val('');
+
+    let items = btn.closest('.item-sampel-items-text');
+
+    items.append(item);
+    return item;
+  }
+}
+
+function addItem() {
+  let main = itemField.addMain();
+  itemField.addItem(main);
+  main.find('button[btn="clone"]').attr('onclick','itemField.cloneThisMainItem($(this))');
+
+}
+
+
 function getParams() {
   let items=[];
 
@@ -214,7 +263,12 @@ function getParams() {
     field = $(this);
     item_type = field.attr('item-type');
 
-    get = getType1Params(field);
+    if (item_type==1) {
+      get = getType1Params(field);
+    }
+    else {
+      get = getType2Params(field);
+    }
 
     get['type']=item_type;
     items.push(get);
@@ -250,7 +304,15 @@ function getType1Params(field){
   return {name:name,items:items};
 }
 
+function getType2Params(field) {
 
+  let name  = field.find('input[item="main-name"]').val();
+  let value = field.find('input[item="main-value"]').val();
+
+  let items = getType1Params(field);
+
+  return {name:name,value:value,items:items};
+}
 
 
 
@@ -286,9 +348,32 @@ console.log('issss');
 
 function generateItems(items) {
   items = JSON.parse(items);
-  initType1(items);
+  console.log(items);
+
+  if (items.type==1) {
+    initType1(items);
+  }
+  else {
+    initType2(items);
+  }
 }
 
+function initType2(items) {
+  console.log('type 2',items);
+  main = itemField.addMain();
+  main.find('input[item="main-name"]').val(items.name);
+  main.find('input[item="main-value"]').val(items.value);
+  // box = itemField.addItem(main);
+  // initType1(items.items,box);
+  // main.find('button[btn="clone"]').attr('onclick','itemField.cloneThisMainItem($(this))');
+
+  let _items = items.items;
+  console.log(_items);
+  for (var variable of _items) {
+    console.log(variable);
+  }
+
+}
 
 function initType1(items,main=false) {
   main = textField.addMain();
@@ -298,7 +383,6 @@ function initType1(items,main=false) {
   main.find('input[item="name"]').val(items.name);
 
   for (var item of items.items) {
-
     console.log(item);
 
     if (item.data_type=='textarea') {
