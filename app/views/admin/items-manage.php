@@ -33,9 +33,9 @@
 
       <div id="main-action" class="uk-width-2-3 uk-text-center">
         <div class="uk-margin-top">
-          <button onclick="newTextItems()" class="uk-button uk-button-default" style="color:white;" type="button" name="button">Add Input Items</button>
+          <button onclick="newTextItems()" class="uk-button uk-button-default" style="color:white;" type="button" name="button">Add Input</button>
           <button onclick="addTextareaItems()" class="uk-button uk-button-default" style="color:white;" type="button" name="button">Add Textarea</button>
-          <!-- <button onclick="addItem()" class="uk-button uk-button-default" style="color:white;" type="button" name="button">Add Items</button> -->
+          <button onclick="addItem()" class="uk-button uk-button-default" style="color:white;" type="button" name="button">Add Items</button>
         </div>
       </div>
     </div>
@@ -50,7 +50,7 @@
 
           <div class="uk-width-1-3" >
             <div class="uk-margin">
-              <input item="name" type="text" class="uk-input uk-form-small" placeholder="Name" name="name" value="">
+              <input item="name" type="text" class="uk-input uk-form-small" placeholder="key" name="key" value="">
             </div>
           </div>
 
@@ -91,13 +91,13 @@
 
         <div class="" uk-grid>
           <div class="uk-width-1-3@s">
-            <label>Name</label>
-            <input item="main-name" type="text" class="uk-input uk-form-small" name="" value="">
+            <label>Items Key</label>
+            <input item="main-key" type="text" class="uk-input uk-form-small" name="" value="">
           </div>
 
           <div class="uk-width-1-3@s">
-            <label>Value</label>
-            <input item="main-value" type="text" class="uk-input uk-form-small" name="" value="">
+            <label>Data</label>
+            <input item="main-data" type="text" class="uk-input uk-form-small" name="" value="">
           </div>
 
         </div>
@@ -255,9 +255,10 @@ function addItem() {
 
 }
 
+function getParams(field) {
 
-function getParams() {
-  let items=[];
+var items={};
+var _type={};
 
   $('#items-content>div[item="main"]:not(#text-sampel,#item-sampel)').each(function(index,html){
     field = $(this);
@@ -265,53 +266,78 @@ function getParams() {
 
     if (item_type==1) {
       get = getType1Params(field);
+      items[get.key]=get.items;
+      _type[get.key]='type_1';
     }
     else {
-      get = getType2Params(field);
+
+
+      main_key = field.find('input[item="main-key"]').val();
+      main_data = field.find('input[item="main-data"]').val();
+
+      _type[main_key]='type_2';
+
+      var child = {};
+
+      field.find('.item-sampel-items-text>div[item="main"]').each(function () {
+        get = getType1Params($(this));
+        child[get.key]=get.items;
+      });
+
+      items[main_key]={data:main_data,params:child};
     }
 
-    get['type']=item_type;
-    items.push(get);
   });
+
+  items['_type']=_type;
 
   return items;
 }
+function getType1Params(field) {
+  key = field.find('input[name="key"]').val();
 
-function getType1Params(field){
 
-  name = field.find('input[item="name"]').val();
+  var items_text_ob = field.find('.items-text .item-text');
 
-  let items=[];
+  console.log(items_text_ob.length);
 
-  field.find('.items-text-main .item-text').each(function () {
+  if (items_text_ob.length>1) {
+    var items_text=[];
+  }
+  else {
+    var items_text={};
+  }
 
-    config = $(this);
+    items_text_ob.each(function () {
+      let item = $(this);
 
-    data_type='input';
+      data_type='input';
 
-    if (config.find('input[item="data"]').data('use')=='yes') {
-      data = config.find('input[item="data"]').val();
-    }
-    else {
-      data = config.prop('editro').getData();
-      data_type='textarea';
-    }
+      if (item.find('input[item="data"]').data('use')=='yes') {
+        var data = item.find('input[item="data"]').val();
+      }
+      else {
+        var data = item.prop('editro').getData();
+        data_type='textarea';
+      }
 
-    value = config.find('input[item="value"]').val();
-    items.push({data:data,value:value,data_type:data_type});
-  });
+      var params ={
+        data:data,
+        value:item.find('input[item="value"]').val(),
+        data_type:data_type
+      }
 
-  return {name:name,items:items};
-}
+      if (items_text_ob.length>1) {
+        items_text.push(params);
+      }
+      else {
+        items_text=params;
+      }
 
-function getType2Params(field) {
 
-  let name  = field.find('input[item="main-name"]').val();
-  let value = field.find('input[item="main-value"]').val();
+    });
 
-  let items = getType1Params(field);
-
-  return {name:name,value:value,items:items};
+    return {key:key,items:items_text};
 }
 
 
@@ -320,7 +346,12 @@ function save() {
 
   params = getParams();
 
-  let config_name = $('#main-name').val();
+  var config_name = $('#main-name').val();
+
+  if (config_name==='') {
+    UIkit.modal.alert('Please enter the config name');
+    return;
+  }
 
   post('@url("admin/settings/items/save")',{
     config_name:config_name,
@@ -338,19 +369,24 @@ function save() {
 }
 
 @if(isset($config))
-console.log('issss');
-@foreach($config->value as $items)
 
-  generateItems(`{!! json_encode($items) !!}`);
+var _type = JSON.parse(`{!! json_encode($config->value->_type) !!}`);
+
+console.log(_type);
+
+@foreach($config->value as $key=>$items)
+@php if($key=='_type') continue; @end
+
+  generateItems('{{$key}}',`{!! json_encode($items) !!}`,);
 
 @endforeach
 @endif
 
-function generateItems(items) {
+function generateItems(key,items) {
   items = JSON.parse(items);
-  console.log(items);
+  console.log(key,items);
 
-  if (items.type==1) {
+  if (_type[key]=='type_1') {
     initType1(items);
   }
   else {
@@ -359,19 +395,9 @@ function generateItems(items) {
 }
 
 function initType2(items) {
-  console.log('type 2',items);
   main = itemField.addMain();
   main.find('input[item="main-name"]').val(items.name);
   main.find('input[item="main-value"]').val(items.value);
-  // box = itemField.addItem(main);
-  // initType1(items.items,box);
-  // main.find('button[btn="clone"]').attr('onclick','itemField.cloneThisMainItem($(this))');
-
-  let _items = items.items;
-  console.log(_items);
-  for (var variable of _items) {
-    console.log(variable);
-  }
 
 }
 
@@ -383,7 +409,7 @@ function initType1(items,main=false) {
   main.find('input[item="name"]').val(items.name);
 
   for (var item of items.items) {
-    console.log(item);
+    // console.log(item);
 
     if (item.data_type=='textarea') {
       te = textField.addTextarea(main.find('button[btn="add-textarea"]'));
