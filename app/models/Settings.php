@@ -32,10 +32,16 @@ class Settings{
 
   public static function config($name=false,$value=false){
     if ($name==false && $value==false) {
-      return self::configObject(self::getAllConfigArray());
+      return self::getAllConfigArray();
     }
     else if($name!=false && $value==false){
-      return self::configObject(DB::table('configs')->where('name',$name)->get());
+      $config =  DB::table('configs')->where('name',$name)->first();
+
+      if ($config && $config->type='items') {
+        return json_decode($config->value);
+      }
+
+      return $config;
     }
     else{
       DB::table('configs')->insert([
@@ -52,15 +58,15 @@ class Settings{
     return DB::table('configs')->get();
   }
 
-  public static function configObject($list){
-    $std = new \stdClass;
-
-    foreach ($list as $key => $config) {
-      $name = $config->name;
-      $std->$name = $config->value;
-    }
-    return $std;
-  }
+  // public static function configObject($list){
+  //   $std = new \stdClass;
+  //
+  //   foreach ($list as $key => $config) {
+  //     $name = $config->name;
+  //     $std->$name = $config->value;
+  //   }
+  //   return $std;
+  // }
 
   public static function save(){
 
