@@ -11,7 +11,9 @@ class indexController
   public function index()
   {
     $index = Settings::config('index');
-    return Post::view('index',['index'=>$index]);
+    $posts = Post::getAll();
+
+    return Post::view('index',['index'=>$index,'posts'=>$posts]);
   }
 
 }
