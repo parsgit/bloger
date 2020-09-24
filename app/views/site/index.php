@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="p-3">
+
+    <h2>{{$index->name->data}}</h2>
+
+
+    <div class="p-3 mt-3">
+      <div class="">
+        {!! $index->text_1->data !!}
+      </div>
+
+      <div class="row justify-content-center mt-5">
+
+        @foreach($index->items->params as $item)
+        <div class="col-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{$item[0]->data}}</h5>
+              {!! $item[1]->data !!}
+            </div>
+
+          </div>
+        </div>
+
+        @endforeach
+
+      </div>
+    </div>
+
+  </div>
+</div>
