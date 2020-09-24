@@ -1,17 +1,31 @@
 <?php
 namespace app\models;
 
+use app\models\Settings;
 use webrium\mysql\DB;
 use Rakit\Validation\Validator;
 
 
 class Post{
 
+  private static $post = false;
+
+  public static function setPost($post)
+  {
+    self::$post=$post;
+  }
+
+  public static function getPost()
+  {
+    return self::$post;
+  }
+
+
   public static function save(){
 
     $id          = input('id',false);
     $title       = input('title');
-    $title_post  = str_replace(' ','-',$title);
+    $title_post  = strtolower(str_replace(' ','-',$title));
     $content     = input('content');
     $description = input('description');
     $tags        = input('tags');
@@ -82,7 +96,7 @@ class Post{
     $post = DB::table('posts')
     ->select(['posts.*','categorys.name as category_name'])
     ->where('title_post',$title);
-    
+
     self::join($post);
     $post = $post->first();
 
@@ -221,6 +235,20 @@ class Post{
     if (Admin::isAuyhor()) {
       $list->where('user_id',User::getId());
     }
+  }
+
+  public static function view($content_name,$params=[])
+  {
+    $params['_view_content'] = "site/$content_name";
+
+    if (self::getPost()) {
+      $params['post'] = self::getPost();
+    }
+
+    $params['site'] = Settings::config('site');
+    // die(json_encode($params));
+
+    return view('site/main',$params);
   }
 
 }
