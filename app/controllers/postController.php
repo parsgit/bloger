@@ -54,7 +54,7 @@ class postController
 
   public function page()
   {
-    return 'hello post';
+    return Post::view('post');
   }
 
 }
