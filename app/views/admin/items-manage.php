@@ -81,7 +81,6 @@
         </div>
 
         <div class="">
-          <button btn="clone" onclick="textField.cloneThisMainItem($(this))" type="button" class="c-btn-icon color-white" name="button" uk-tooltip="title: Clone this item; pos: top" ><i class="fas fa-clone"></i></button>
           <button btn="remove" onclick="textField.removeMain($(this))" type="button" class="c-btn-icon color-red" name="button"    uk-tooltip="title: Remove this item; pos: top"><i class="fas fa-trash"></i></button>
         </div>
       </div>
@@ -374,19 +373,25 @@ function save() {
 
 @if(isset($config))
 
-var _type = JSON.parse(`{!! json_encode($config->value->_type) !!}`);
 
-@foreach($config->value as $key=>$items)
-@php if($key=='_type') continue; @end
+var json = {!! json_encode($config->value) !!};
 
-generateItems('{{$key}}',`{!! json_encode($items) !!}`,);
+var _type = json._type;
 
-@endforeach
+for (var key in json) {
+  if (json.hasOwnProperty(key)) {
+
+    if (key=='_type') {
+      continue;
+    }
+
+    generateItems(key,json[key]);
+  }
+}
 @endif
 
 function generateItems(key,items) {
-  items = JSON.parse(items);
-
+;
   if (_type[key]=='type_1') {
     initType1(key,items);
   }
