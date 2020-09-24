@@ -391,7 +391,6 @@ for (var key in json) {
 @endif
 
 function generateItems(key,items) {
-;
   if (_type[key]=='type_1') {
     initType1(key,items);
   }
