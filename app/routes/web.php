@@ -4,7 +4,7 @@ use webrium\core\Url;
 use app\models\Post;
 
 $arr   = Url::current_array();
-$post  = Post::findByTitle(end($arr));
+$post  = Post::findByTitle(urldecode(end($arr)));
 
 if ($post) {
   if ($post->category_id>0) {
@@ -18,6 +18,7 @@ if ($post) {
   $curent   = current_url();
 
   if ($post_url == $curent) {
+    Post::setPost($post);
     Route::call('controllers@postController->page');
     die;
   }
