@@ -34,6 +34,8 @@ class View
 
     if (! File::exists($render_file_path)) {
 
+      self::autoClearCashes();
+
       $str ='<?php foreach ($GLOBALS as $key => $value) {${$key}=$value;}; $_all = $GLOBALS; ?>';
 
       $code = $str. File::getContent($file_path);
@@ -138,8 +140,10 @@ class View
   */
   private static function hash($path)
   {
-    if (File::exists($path)) {
-      return md5_file($path);
+    $hash = File::hash($path);
+
+    if ($hash) {
+      return $hash;
     }
     else {
       Debug::createError("View file '".basename($path)."' not found",false,false,500);
@@ -153,10 +157,26 @@ class View
     $list = File::getFiles($render_path);
 
     foreach ($list as $key => $file) {
-      File::delete($render_path,$file);
+      File::delete("$render_path/$file");
     }
 
     return count($list);
+  }
+
+  public static function autoClearCashes()
+  {
+    $render_path = Directory::path('render_views');
+
+    $list = File::getFiles($render_path);
+
+    $now = date("Y-m-d H:i");
+
+    foreach ($list as $key => $file) {
+      $created_at = date("Y-m-d H:i", filemtime("$render_path/$file"));
+      if ($created_at!=$now) {
+        File::delete("$render_path/$file");
+      }
+    }
   }
 
 }
