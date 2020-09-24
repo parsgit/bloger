@@ -58,16 +58,6 @@ class Settings{
     return DB::table('configs')->get();
   }
 
-  // public static function configObject($list){
-  //   $std = new \stdClass;
-  //
-  //   foreach ($list as $key => $config) {
-  //     $name = $config->name;
-  //     $std->$name = $config->value;
-  //   }
-  //   return $std;
-  // }
-
   public static function save(){
 
     // save configs value
@@ -92,7 +82,7 @@ class Settings{
   {
      $config = DB::table('configs')->where('id',$id)->first();
 
-     if ($config->type=='items') {
+     if ( $config->type=='items') {
        $config->value = json_decode($config->value);
      }
 
