@@ -145,7 +145,7 @@
   }
 
   @foreach($configArray as $key=> $config)
-  console.log('run config:','{{$config->type}}');
+
     @if($config->type=='custom' || $config->type=='items')
       item = addConfig();
       item.data('name','{{$config->name}}');
@@ -154,7 +154,6 @@
       @if($config->type=='custom')
         item.find('input[name="value"]').val('{{$config->value}}');
       @else
-        item.data('type','items');
         item.find('input[name="value"]').fadeOut(0);
         item.find('a[name="edit"]')
         .fadeIn(0)
