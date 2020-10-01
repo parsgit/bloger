@@ -32,7 +32,7 @@ class Settings{
 
   public static function config($name=false,$value=false){
     if ($name==false && $value==false) {
-      return self::getAllConfigArray();
+      return self::configObject(self::getAllConfigArray());
     }
     else if($name!=false && $value==false){
       $config =  DB::table('configs')->where('name',$name)->first();
@@ -55,7 +55,7 @@ class Settings{
 
   public static function getAllConfigArray()
   {
-    return DB::table('configs')->get();
+    return DB::table('configs')->where('type','general')->get();
   }
 
   public static function save(){
@@ -76,6 +76,16 @@ class Settings{
       'name'=>input('config_name'),
       'value'=>json_encode(input('params',[]))
     ]]);
+  }
+
+  public static function configObject($list){
+    $std = new \stdClass;
+
+    foreach ($list as $key => $config) {
+      $name = $config->name;
+      $std->$name = $config->value;
+    }
+    return $std;
   }
 
   public static function getConfigById($id)

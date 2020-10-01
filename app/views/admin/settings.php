@@ -24,16 +24,6 @@
         <input id="tagline" type="text" class="uk-input" value="{{$config->tagline??''}}">
       </div>
 
-      <div class="uk-margin">
-        <label>Theme Name</label>
-        <input id="theme-name" type="text" class="uk-input" value="{{$config->theme_name??''}}">
-      </div>
-
-      <div class="uk-margin">
-        <label>Index Post ID</label>
-        <input id="index-post-id" type="text" class="uk-input" value="{{$config->index_id??''}}">
-      </div>
-
 
 
     </div>
