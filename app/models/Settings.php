@@ -55,7 +55,7 @@ class Settings{
 
   public static function getAllConfigArray()
   {
-    return DB::table('configs')->where('type','general')->get();
+    return DB::table('configs')->get();
   }
 
   public static function save(){
