@@ -16,6 +16,14 @@
 .hide{
   display: none;
 }
+.uk-sortable-handle{
+  width: 20px;
+  height: 15px;
+  background: rgb(77, 74, 74);
+  margin-top: -5px;
+  margin-left: -8px;
+  margin-bottom: -8px;
+}
 </style>
 
 <div class="uk-container">
@@ -56,9 +64,10 @@
 
           <div class="items-text-main uk-width-2-3">
 
-            <div class="items-text">
+            <div class="items-text" uk-sortable="handle: .uk-sortable-handle">
 
-              <div id="text-sampel-input-box" class="item-text uk-margin">
+              <div id="text-sampel-input-box" class="item-text uk-margin ">
+                <div class="uk-sortable-handle"></div>
                 <input data-use="yes" item="data" type="text" class="uk-input uk-form-small" placeholder="Data" value="">
                 <textarea data-use="no" item="data" style="display:none;" class="uk-textarea"></textarea>
 
