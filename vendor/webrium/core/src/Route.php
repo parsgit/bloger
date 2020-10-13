@@ -41,7 +41,6 @@ class Route
 
   public static function check($method,$addr,$file)
   {
-
     if ((Url::method()==$method || $method=='ALL')&& Url::is($addr)) {
 
       if (is_string($file)) {
@@ -93,6 +92,8 @@ class Route
       else if ( $file != false ) {
         self::call($file);
       }
+
+      die;
 
     }
   }

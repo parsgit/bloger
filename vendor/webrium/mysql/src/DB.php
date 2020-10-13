@@ -29,7 +29,7 @@ class DB
   * @param  string $config_name config key name
   * @return query  class query
   */
-  public static function in($config_name)
+  public static function of($config_name)
   {
     return  DB::initOnceDB($config_name);
   }

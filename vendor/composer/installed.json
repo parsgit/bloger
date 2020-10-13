@@ -25,7 +25,7 @@
                 "botfire\\botfire\\": "src/"
             }
         },
-        "notification-url": "https://packagist.org/downloads/",
+        "notification-url": "https://repo.packagist.org/downloads/",
         "license": [
             "MIT"
         ],
@@ -69,7 +69,7 @@
                 "Gregwar\\": "src/Gregwar"
             }
         },
-        "notification-url": "https://packagist.org/downloads/",
+        "notification-url": "https://repo.packagist.org/downloads/",
         "license": [
             "MIT"
         ],
@@ -94,22 +94,23 @@
     },
     {
         "name": "phpmailer/phpmailer",
-        "version": "v6.1.7",
-        "version_normalized": "6.1.7.0",
+        "version": "v6.1.8",
+        "version_normalized": "6.1.8.0",
         "source": {
             "type": "git",
             "url": "https://github.com/PHPMailer/PHPMailer.git",
-            "reference": "2c2370ba3df7034f9eb7b8f387c97b52b2ba5ad0"
+            "reference": "917ab212fa00dc6eacbb26e8bc387ebe40993bc1"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/2c2370ba3df7034f9eb7b8f387c97b52b2ba5ad0",
-            "reference": "2c2370ba3df7034f9eb7b8f387c97b52b2ba5ad0",
+            "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/917ab212fa00dc6eacbb26e8bc387ebe40993bc1",
+            "reference": "917ab212fa00dc6eacbb26e8bc387ebe40993bc1",
             "shasum": ""
         },
         "require": {
             "ext-ctype": "*",
             "ext-filter": "*",
+            "ext-hash": "*",
             "php": ">=5.5.0"
         },
         "require-dev": {
@@ -125,7 +126,7 @@
             "stevenmaguire/oauth2-microsoft": "Needed for Microsoft XOAUTH2 authentication",
             "symfony/polyfill-mbstring": "To support UTF-8 if the Mbstring PHP extension is not enabled (^1.2)"
         },
-        "time": "2020-07-14T18:50:27+00:00",
+        "time": "2020-10-09T14:55:58+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -133,7 +134,7 @@
                 "PHPMailer\\PHPMailer\\": "src/"
             }
         },
-        "notification-url": "https://packagist.org/downloads/",
+        "notification-url": "https://repo.packagist.org/downloads/",
         "license": [
             "LGPL-2.1-only"
         ],
@@ -158,8 +159,8 @@
     },
     {
         "name": "rakit/validation",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "version": "v1.4.0",
+        "version_normalized": "1.4.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/rakit/validation.git",
@@ -182,13 +183,13 @@
         },
         "time": "2020-08-27T05:07:01+00:00",
         "type": "library",
-        "installation-source": "source",
+        "installation-source": "dist",
         "autoload": {
             "psr-4": {
                 "Rakit\\Validation\\": "src"
             }
         },
-        "notification-url": "https://packagist.org/downloads/",
+        "notification-url": "https://repo.packagist.org/downloads/",
         "license": [
             "MIT"
         ],
@@ -202,29 +203,24 @@
     },
     {
         "name": "symfony/finder",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "version": "5.x-dev",
+        "version_normalized": "5.9999999.9999999.9999999-dev",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/finder.git",
-            "reference": "b5f7c0d069d8517c994f1dc0e9c100257d7effd9"
+            "reference": "b05b9bb8ac9823a666806551395e89affaf37b26"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/finder/zipball/b5f7c0d069d8517c994f1dc0e9c100257d7effd9",
-            "reference": "b5f7c0d069d8517c994f1dc0e9c100257d7effd9",
+            "url": "https://api.github.com/repos/symfony/finder/zipball/b05b9bb8ac9823a666806551395e89affaf37b26",
+            "reference": "b05b9bb8ac9823a666806551395e89affaf37b26",
             "shasum": ""
         },
         "require": {
             "php": ">=7.2.5"
         },
-        "time": "2020-09-02T16:27:44+00:00",
+        "time": "2020-10-06T15:53:16+00:00",
         "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "5.2-dev"
-            }
-        },
         "installation-source": "source",
         "autoload": {
             "psr-4": {
@@ -234,7 +230,7 @@
                 "/Tests/"
             ]
         },
-        "notification-url": "https://packagist.org/downloads/",
+        "notification-url": "https://repo.packagist.org/downloads/",
         "license": [
             "MIT"
         ],
@@ -253,20 +249,20 @@
     },
     {
         "name": "webrium/core",
-        "version": "0.0.46",
-        "version_normalized": "0.0.46.0",
+        "version": "0.0.49",
+        "version_normalized": "0.0.49.0",
         "source": {
             "type": "git",
             "url": "https://github.com/webrium/core.git",
-            "reference": "177bd3dd93ed124827b42061c63d4f8dab27e11c"
+            "reference": "f05360059cc7b95993ed00f8d6bb5ad51436db4d"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/webrium/core/zipball/177bd3dd93ed124827b42061c63d4f8dab27e11c",
-            "reference": "177bd3dd93ed124827b42061c63d4f8dab27e11c",
+            "url": "https://api.github.com/repos/webrium/core/zipball/f05360059cc7b95993ed00f8d6bb5ad51436db4d",
+            "reference": "f05360059cc7b95993ed00f8d6bb5ad51436db4d",
             "shasum": ""
         },
-        "time": "2020-09-24T09:29:55+00:00",
+        "time": "2020-10-12T19:50:25+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -274,7 +270,7 @@
                 "webrium\\core\\": "src/"
             }
         },
-        "notification-url": "https://packagist.org/downloads/",
+        "notification-url": "https://repo.packagist.org/downloads/",
         "license": [
             "MIT"
         ],
@@ -288,23 +284,23 @@
     },
     {
         "name": "webrium/mysql",
-        "version": "0.1.7",
-        "version_normalized": "0.1.7.0",
+        "version": "0.1.8",
+        "version_normalized": "0.1.8.0",
         "source": {
             "type": "git",
             "url": "https://github.com/webrium/mysql.git",
-            "reference": "b83fb74806362d36335898eb43af96922ab6ca72"
+            "reference": "08ee0f15f849c9b7ff9d466b1e223611d59aa6d9"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/webrium/mysql/zipball/b83fb74806362d36335898eb43af96922ab6ca72",
-            "reference": "b83fb74806362d36335898eb43af96922ab6ca72",
+            "url": "https://api.github.com/repos/webrium/mysql/zipball/08ee0f15f849c9b7ff9d466b1e223611d59aa6d9",
+            "reference": "08ee0f15f849c9b7ff9d466b1e223611d59aa6d9",
             "shasum": ""
         },
         "require": {
             "php": ">=7.0.0"
         },
-        "time": "2020-09-04T17:08:19+00:00",
+        "time": "2020-10-01T11:33:10+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -312,7 +308,7 @@
                 "webrium\\mysql\\": "src/"
             }
         },
-        "notification-url": "https://packagist.org/downloads/",
+        "notification-url": "https://repo.packagist.org/downloads/",
         "license": [
             "MIT"
         ],
