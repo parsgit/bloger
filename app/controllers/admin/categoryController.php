@@ -1,8 +1,8 @@
 <?php
-namespace app\controllers;
+namespace app\controllers\admin;
 
-use app\models\Panel;
-use app\models\Categorys;
+use app\models\admin\Panel;
+use app\models\admin\Categorys;
 
 class categoryController
 {

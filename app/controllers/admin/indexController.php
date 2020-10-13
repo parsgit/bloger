@@ -1,8 +1,8 @@
 <?php
-namespace app\controllers;
+namespace app\controllers\admin;
 
-use app\models\Post;
-use app\models\Settings;
+use app\models\admin\Post;
+use app\models\admin\Settings;
 
 class indexController
 {

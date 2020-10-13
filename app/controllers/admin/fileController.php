@@ -1,9 +1,9 @@
 <?php
-namespace app\controllers;
+namespace app\controllers\admin;
 
-use app\models\Panel;
-use app\models\Categorys;
-use app\models\Files;
+use app\models\admin\Panel;
+use app\models\admin\Categorys;
+use app\models\admin\Files;
 use webrium\core\File;
 use webrium\core\Url;
 use webrium\core\Directory;

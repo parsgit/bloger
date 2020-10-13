@@ -1,10 +1,10 @@
 <?php
-namespace app\controllers;
+namespace app\controllers\admin;
 
-use app\models\Panel;
-use app\models\User;
-use app\models\Categorys;
-use app\models\Admin;
+use app\models\admin\Panel;
+use app\models\admin\User;
+use app\models\admin\Categorys;
+use app\models\admin\Admin;
 
 use webrium\core\Session;
 
