@@ -1,7 +1,8 @@
 <?php
 use webrium\core\Route;
 use webrium\core\Url;
-use app\models\Post;
+
+use app\models\admin\Post;
 
 $arr   = Url::current_array();
 $post  = Post::findByTitle(urldecode(end($arr)));
@@ -19,19 +20,19 @@ if ($post) {
 
   if ($post_url == $curent) {
     Post::setPost($post);
-    Route::call('controllers@postController->page');
+    Route::call('admin/postController->page');
     die;
   }
 }
 
 
-Route::get('','controllers@indexController->index');
-Route::get('file/image/content/*','controllers@fileController->downloadFile');
-Route::get('profile/image/*','controllers@fileController->showProfileImage');
+Route::get('','admin/indexController->index');
+Route::get('file/image/content/*','admin/fileController->downloadFile');
+Route::get('profile/image/*','admin/fileController->showProfileImage');
 
 // change captcha
-Route::post('captcha/new','controllers@userController->captcha');
+Route::post('captcha/new','admin/userController->captcha');
 
 
-Route::get('login','controllers@userController->loginPage');
-Route::post('login','controllers@userController->loginUser');
+Route::get('login','admin/userController->loginPage');
+Route::post('login','admin/userController->loginUser');
