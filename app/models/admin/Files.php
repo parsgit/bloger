@@ -1,13 +1,13 @@
 <?php
-namespace app\models;
+namespace app\models\admin;
 
 use webrium\core\Upload;
 use webrium\core\File;
 use webrium\core\Directory;
 use webrium\mysql\DB;
 
-use app\models\User;
-use app\models\Admin;
+use app\models\admin\User;
+use app\models\admin\Admin;
 
 class Files{
 

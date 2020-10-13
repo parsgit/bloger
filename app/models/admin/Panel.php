@@ -1,8 +1,8 @@
 <?php
-namespace app\models;
+namespace app\models\admin;
 
-use app\models\Admin;
-use app\models\User;
+use app\models\admin\Admin;
+use app\models\admin\User;
 
 class Panel{
 

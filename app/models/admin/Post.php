@@ -1,7 +1,7 @@
 <?php
-namespace app\models;
+namespace app\models\admin;
 
-use app\models\Settings;
+use app\models\admin\Settings;
 use webrium\mysql\DB;
 use Rakit\Validation\Validator;
 

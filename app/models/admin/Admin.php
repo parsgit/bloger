@@ -1,9 +1,9 @@
 <?php
-namespace app\models;
+namespace app\models\admin;
 
 use webrium\core\Session;
 use webrium\core\Url;
-use app\models\User;
+use app\models\admin\User;
 
 class Admin{
 

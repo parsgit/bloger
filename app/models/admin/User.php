@@ -1,5 +1,5 @@
 <?php
-namespace app\models;
+namespace app\models\admin;
 
 use webrium\core\Hash;
 use webrium\core\Session;
