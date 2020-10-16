@@ -28,30 +28,30 @@ class User{
 
     if (self::$user==null || $force) {
       $id = self::getId();
-      self::$user = DB::table('users')->where('id',$id)->first();
+      self::$user = DB::table('admins')->where('id',$id)->first();
     }
 
     return self::$user;
   }
 
   public static function getById($id){
-    return DB::table('users')->where('id',$id)->first();
+    return DB::table('admins')->where('id',$id)->first();
   }
 
   public static function getAll(){
-    $list = DB::table('users');
+    $list = DB::table('admins');
     return $list->get();
   }
 
   public static function remove($id){
-    $countAdmin = DB::table('users')->where('type','administrator')->count();
-    $user = DB::table('users')->where('id',$id)->first();
+    $countAdmin = DB::table('admins')->where('type','administrator')->count();
+    $user = DB::table('admins')->where('id',$id)->first();
 
     if ($countAdmin == 1 && $user->type=='administrator') {
       return['ok'=>false,'message'=>'At least one admin is required and cannot be removed'];
     }
 
-    DB::table('users')->where('id',$id)->delete();
+    DB::table('admins')->where('id',$id)->delete();
     return ['ok'=>true];
   }
 
@@ -83,7 +83,7 @@ class User{
       return ['ok'=>false,'message'=>'Captcha entered is incorrect'];
     }
 
-    $getUser = DB::table('users')->where('username',$username)->first();
+    $getUser = DB::table('admins')->where('username',$username)->first();
 
     if ($getUser != false && Hash::check($password,$getUser->password)) {
       self::setLogin($getUser->id);
@@ -127,13 +127,13 @@ class User{
     $password = input('password');
     $type = input('type');
 
-    $user = DB::table('users')->where('username',$username)->first();
+    $user = DB::table('admins')->where('username',$username)->first();
 
     if ($user!=false) {
       return['ok'=>false,'message'=>'User already exists'];
     }
 
-    DB::table('users')->insert([
+    DB::table('admins')->insert([
       'name'=>$name,
       'email'=>$email,
       'username'=>$username,
@@ -172,10 +172,10 @@ class User{
     $type = input('type',false);
     $user_id = input('user_id');
 
-    $user = DB::table('users')->where('id',$user_id)->first();
+    $user = DB::table('admins')->where('id',$user_id)->first();
 
     if ($username != $user->username) {
-      $user = DB::table('users')->where('username',$username)->first();
+      $user = DB::table('admins')->where('username',$username)->first();
 
       if ($user!=false) {
         return['ok'=>false,'message'=>'Username already exists Please select another username'];
@@ -215,7 +215,7 @@ class User{
       $insertParams['type']=$type;
     }
 
-    DB::table('users')->where('id',$user_id)->update($insertParams);
+    DB::table('admins')->where('id',$user_id)->update($insertParams);
 
     return['ok'=>true];
   }
@@ -255,13 +255,13 @@ class User{
       return['ok'=>false,'message'=>'The old password is incorrect'];
     }
 
-    $user = DB::table('users')->where('id',$user_id)->first();
+    $user = DB::table('admins')->where('id',$user_id)->first();
 
     if ($user_id != User::get()->id && !Admin::isAdmin()) {
       return['ok'=>false,'message'=>'You do not have permission to edit other users'];
     }
 
-    DB::table('users')->where('id',$user_id)->update([
+    DB::table('admins')->where('id',$user_id)->update([
       'password'=>Hash::make($password)
     ]);
 

@@ -109,7 +109,7 @@ class Post{
 
   public static function getAll($page=1){
 
-    $posts = DB::table('posts')->select(['posts.*','categorys.name as category_name','users.name as author_name'])->orderBy('id','desc');
+    $posts = DB::table('posts')->select(['posts.*','categorys.name as category_name','admins.name as author_name'])->orderBy('id','desc');
 
     self::join($posts);
 
@@ -167,7 +167,7 @@ class Post{
   public static function join(&$item)
   {
     $item->leftJoin('categorys', 'categorys.id=posts.category_id');
-    $item->leftJoin('users', 'users.id=posts.user_id');
+    $item->leftJoin('users', 'admins.id=posts.user_id');
   }
 
   public static function makeUrl(&$posts)
