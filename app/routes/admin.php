@@ -4,6 +4,16 @@ use app\models\admin\Admin;
 use app\models\admin\User;
 use app\models\admin\Panel;
 
+Route::get('file/image/content/*','admin/fileController->downloadFile');
+Route::get('profile/image/*','admin/fileController->showProfileImage');
+
+// change captcha
+Route::post('captcha/new','admin/userController->captcha');
+
+
+Route::get('login','admin/userController->loginPage');
+Route::post('login','admin/userController->loginUser');
+
 
 if (Admin::isAdminRoute()) {
 
