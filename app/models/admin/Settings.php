@@ -37,7 +37,7 @@ class Settings{
     else if($name!=false && $value==false){
       $config =  DB::table('configs')->where('name',$name)->first();
 
-      if ($config && $config->type='items') {
+      if ($config && $config->type=='items') {
         return json_decode($config->value);
       }
 
